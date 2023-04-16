@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>テンプレート</title>
+<!--
+
+インライン要素について
+https://www.itra.co.jp/webmedia/what-is-inline-block.html
+
+CSSフレックスボックス(display:flex)の使い方
+https://mamewaza.com/support/blog/howto-use-flex.html
+https://webst8.com/blog/css-flex/
+
+flex wrap
+https://web-designer.cman.jp/css_ref/abc_list/flex-wrap/
+
+【CSS】displayの使い方を総まとめ！inlineやblockの違いは？
+https://saruwakakun.com/html-css/basic/display
+
+【初心者向け】CSSのvertical-alignを基礎から解説
+https://mteam.jp/column/10146/
+
+【CSS】justify-contentプロパティの使い方と実装例を解説！！ 
+https://webukatu.com/wordpress/blog/18110/
+
+-->
+<style>
+/*.inline-block要素にすることでサイズの指定が可能 */
+#inlineBlock #inlineBlock1 {
+	display: inline-block;
+	width: 200px;
+	height: 20px;
+	background-color: #dd5268;
+}
+/* spanタグはinline要素のためサイズの指定はできない */
+#inlineBlock #inlineBlock2 {
+	width: 200px;
+	height: 20px;
+	background-color: #dd5268;
+}
+/* divをinline要素にすると、サイズがかわらない */
+#inlineBlock #inlineBlock3 {
+	display: inline;   /* divはすでにinline-blockなので戻す*/
+	width: 200px;
+	height: 20px;
+	background-color: #dd5268;
+}
+#inlineBlock #inlineBlock4 {
+	width: 200px;
+	height: 20px;
+	background-color: #dd5268;
+}
+
+#flex  {
+	display: flex;
+}
+/*.flex-box内にすることでサイズが画面に均等にリサイズされる*/
+/*.そのためflex-shrink:0を指定してwidthを設定する */
+/*.flex-shrinkはflex-boxの縮小率で数値があがれば小さくなる。0で縮小なし*/
+#flex #flex1 {
+	flex-shrink: 0;
+	width: 200px;
+	height: 20px;
+	background-color: #aaa;
+}
+/*.flex-box内にすることでサイズが画面に均等にリサイズされる*/
+/*.flex-shrink:0を指定しない場合画面幅の余りのサイズ */
+#flex #flex2 {
+	width: 200px;
+	height: 20px;
+	background-color: #bbb;
+}
+/*.flex-box内にすることでサイズが画面に均等にリサイズされる*/
+/*.そのためflex-shrink:0を指定してwidthを設定する */
+#flex #flex3 {
+	flex-shrink: 0;
+	width: 200px;
+	height: 20px;
+	background-color: #ccc;
+}
+/*.flex-box内にすることでサイズが画面に均等にリサイズされる*/
+/*.flex-shrink:0を指定しない場合画面幅の余りのサイズ */
+#flex #flex4 {
+	width: 200px;
+	height: 20px;
+	background-color: #ddd;
+}
+
+/*.flex-wrapで折り返し */
+#flexWrap  {
+	display: flex;
+	flex-wrap: wrap;
+}
+#flexWrap #flexWrap1 {
+	width: 200px;
+	height: 20px;
+	background-color: #dd5268;
+}
+#flexWrap #flexWrap2 {
+	width: 200px;
+	height: 20px;
+	background-color: #dd5268;
+}
+#flexWrap #flexWrap3 {
+	width: 200px;
+	height: 20px;
+	background-color: #dd5268;
+}
+#flexWrap #flexWrap4 {
+	width: 200px;
+	height: 20px;
+	background-color: #dd5268;
+}
+/*.justify-contentで配置の仕方変更 */
+#flexjustify  {
+	display: flex;
+	justify-content: space-between;
+}
+#flexjustify #flexjustify1 {
+	width: 200px;
+	height: 20px;
+	background-color: #dd5268;
+}
+#flexjustify #flexjustify2 {
+	width: 200px;
+	height: 20px;
+	background-color: #dd5268;
+}
+#flexjustify #flexjustify3 {
+	width: 200px;
+	height: 20px;
+	background-color: #dd5268;
+}
+#flexjustify #flexjustify4 {
+	width: 200px;
+	height: 20px;
+	background-color: #dd5268;
+}
+
+</style>
+</head>
+<body>
+
+<section id="inlineBlock">
+	<span id="inlineBlock1">aaa</span>
+	<span id="inlineBlock2">bbb</span>
+	<div id="inlineBlock3">ccc</div>
+	<div id="inlineBlock4">ddd</div>
+</section>
+<hr>
+<section id="flex">
+	<span id="flex1">eee</span>
+	<span id="flex2">fff</span>
+	<div id="flex3">ggg</div>
+	<div id="flex4">hhh</div>
+</section>
+<hr>
+<section id="flexWrap">
+	<span id="flexWrap1">eee</span>
+	<span id="flexWrap2">fff</span>
+	<div id="flexWrap3">ggg</div>
+	<div id="flexWrap4">hhh</div>
+</section>
+<hr>
+<section id="flexjustify">
+	<span id="flexjustify1">eee</span>
+	<span id="flexjustify2">fff</span>
+	<div id="flexjustify3">ggg</div>
+	<div id="flexjustify4">hhh</div>
+</section>
+
+
+</body>
+</html>
