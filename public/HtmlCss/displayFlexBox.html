@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>テンプレート</title>
+<!-- ブラウザごとのデフォルトCSSを削除 -->
+<link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+<!--
+
+CSSフレックスボックス(display:flex)の使い方
+https://mamewaza.com/support/blog/howto-use-flex.html
+https://webst8.com/blog/css-flex/
+
+flex wrap
+https://web-designer.cman.jp/css_ref/abc_list/flex-wrap/
+
+【CSS】displayの使い方を総まとめ！inlineやblockの違いは？
+https://saruwakakun.com/html-css/basic/display
+
+【初心者向け】CSSのvertical-alignを基礎から解説
+https://mteam.jp/column/10146/
+
+【CSS】justify-contentプロパティの使い方と実装例を解説！！ 
+https://webukatu.com/wordpress/blog/18110/
+
+-->
+<style>
+h1 {
+	color: #505050;/*文字色*/
+	padding: 0.7em;/*文字周りの余白*/
+	line-height: 0.5;/*行高*/
+	background: #dbebf8;/*背景色*/
+}
+h1:before {
+	content: '●';
+	color: #505050;
+	margin-right: 5px;
+}
+h2 {
+	color: #505050;/*文字色*/
+	padding: 0.7em;/*文字周りの余白*/
+	line-height: 0.5;/*行高*/
+	background: #dbebf8;/*背景色*/
+}
+h2:before {
+	content: '●';
+	color: #505050;
+	margin-right: 5px;
+}
+table {
+	/* tableの2重線を1重線に変える */
+	border-collapse: collapse;	
+}
+table th, table td{
+	border: 1px solid #ddd;
+}
+/*
+ * 中の要素に指定なし
+ */
+#flex-no-target {
+	display: flex;
+	background-color: #bbb;		
+}
+/*
+ * 1つの要素だけ指定なし
+ */
+#flex-default  {
+	display: flex;
+}
+#flex-default #flex-item {
+	width: 200px;
+	height: 20px;
+	background-color: #bbb;
+}
+/*
+ * 要素ごとにサイズを変更したい
+ */
+#flex-resize  {
+	display: flex;
+}
+#flex-resize #flex-item1 {
+	/*flex-shrink: 0;*/
+	width: 20px;
+	height: 20px;
+	background-color: #aaa;
+}
+#flex-resize #flex-item2 {
+	width: 200px;
+	height: 20px;
+	background-color: #bbb;
+}
+/*
+ * flex-wrapで折り返し
+ */
+#flexWrap  {
+	display: flex;
+	flex-wrap: wrap;
+}
+#flexWrap #flexWrap-item {
+	width: 200px;
+	height: 20px;
+	background-color: #dd5268;
+}
+/*
+ * justify-contentで配置の仕方変更
+ */
+#flexjustify  {
+	display: flex;
+	justify-content: space-between;
+}
+#flexjustify #flexjustify-item {
+	width: 200px;
+	height: 20px;
+	background-color: #dd5268;
+}
+
+</style>
+</head>
+<body>
+
+
+<hr>
+<section>
+	<h1>flex Box</h1>
+	<p>sectionを「display: flex;」にすることで中の要素のサイズが画面に均等にリサイズされる.blockとかinline関係なく.サイズ指定なければ文字数分のサイズが取られ、余ったサイズでサイズ指定してるものでリサイズされてるっぽい</p>
+</section>
+<section>
+	<h2>中の要素に指定なし</h2>
+	<p>中の要素になにも指定していなければdisplayの値に関係なく文字数分のサイズで中の要素が配置される。</p>
+</section>
+<section id="flex-no-target">
+	<span>span1</span>
+	<span>span2</span>
+	<div>div1</div>
+	<div>div2</div>
+</section>
+<section>
+	<h2>１つの要素だけ指定なし</h2>
+	<p>中の要素のサイズも変更可能で一括してサイズを指定しておけばそのサイズで均等に配置される.</p>
+</section>
+<section id="flex-default">
+	<span>span1</span>
+	<span id="flex-item">span2</span>
+	<div id="flex-item">div1</div>
+	<div id="flex-item">div2</div>
+</section>
+<hr>
+<section>
+	<h2>要素ごとにサイズを変更したい</h2>
+	<p>中の要素のサイズは「flex-shrink:0」を指定して「width」でサイズを変えるのが基本らしいが、shrinkを指定しなくてもサイズは変わる。flex-shrinkはflex-boxの縮小率で数値があがれば小さくなる。0で縮小なしらしい（ちょっと理解できてない）flex-shrink:0を指定しない場合画面幅の余りのサイズ</p>
+</section>
+<section id="flex-resize">
+	<span id="flex-item1">eee</span>
+	<span id="flex-item2">fff</span>
+	<div id="flex-item1">ggg</div>
+	<div id="flex-item2">hhh</div>
+</section>
+<hr>
+<section>
+	<h2>flex-wrapで折り返し</h2>
+</section>
+<section id="flexWrap">
+	<span id="flexWrap-item">eee</span>
+	<span id="flexWrap-item">fff</span>
+	<div id="flexWrap-item">ggg</div>
+	<div id="flexWrap-item">hhh</div>
+</section>
+<hr>
+<section>
+	<h2>justify-contentで配置の仕方変更</h2>
+</section>
+<section id="flexjustify">
+	<span id="flexjustify-item">eee</span>
+	<span id="flexjustify-item">fff</span>
+	<div id="flexjustify-item">ggg</div>
+	<div id="flexjustify-item">hhh</div>
+</section>
+
+</body>
+</html>

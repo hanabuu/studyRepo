@@ -3,17 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>テンプレート</title>
+<!-- ブラウザごとのデフォルトCSSを削除 -->
+<link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
 <!--
 
 インライン要素について
 https://www.itra.co.jp/webmedia/what-is-inline-block.html
-
-CSSフレックスボックス(display:flex)の使い方
-https://mamewaza.com/support/blog/howto-use-flex.html
-https://webst8.com/blog/css-flex/
-
-flex wrap
-https://web-designer.cman.jp/css_ref/abc_list/flex-wrap/
 
 【CSS】displayの使い方を総まとめ！inlineやblockの違いは？
 https://saruwakakun.com/html-css/basic/display
@@ -26,6 +21,35 @@ https://webukatu.com/wordpress/blog/18110/
 
 -->
 <style>
+h1 {
+	color: #505050;/*文字色*/
+	padding: 0.7em;/*文字周りの余白*/
+	line-height: 0.5;/*行高*/
+	background: #dbebf8;/*背景色*/
+}
+h1:before {
+	content: '●';
+	color: #505050;
+	margin-right: 5px;
+}
+h2 {
+	color: #505050;/*文字色*/
+	padding: 0.7em;/*文字周りの余白*/
+	line-height: 0.5;/*行高*/
+	background: #dbebf8;/*背景色*/
+}
+h2:before {
+	content: '●';
+	color: #505050;
+	margin-right: 5px;
+}
+table {
+	/* tableの2重線を1重線に変える */
+	border-collapse: collapse;	
+}
+table th, table td{
+	border: 1px solid #ddd;
+}
 /*.inline-block要素にすることでサイズの指定が可能 */
 #inlineBlock #inlineBlock1 {
 	display: inline-block;
@@ -51,88 +75,8 @@ https://webukatu.com/wordpress/blog/18110/
 	height: 20px;
 	background-color: #dd5268;
 }
-
-#flex  {
-	display: flex;
-}
-/*.flex-box内にすることでサイズが画面に均等にリサイズされる*/
-/*.そのためflex-shrink:0を指定してwidthを設定する */
-/*.flex-shrinkはflex-boxの縮小率で数値があがれば小さくなる。0で縮小なし*/
-#flex #flex1 {
-	flex-shrink: 0;
-	width: 200px;
-	height: 20px;
-	background-color: #aaa;
-}
-/*.flex-box内にすることでサイズが画面に均等にリサイズされる*/
-/*.flex-shrink:0を指定しない場合画面幅の余りのサイズ */
-#flex #flex2 {
-	width: 200px;
-	height: 20px;
-	background-color: #bbb;
-}
-/*.flex-box内にすることでサイズが画面に均等にリサイズされる*/
-/*.そのためflex-shrink:0を指定してwidthを設定する */
-#flex #flex3 {
-	flex-shrink: 0;
-	width: 200px;
-	height: 20px;
-	background-color: #ccc;
-}
-/*.flex-box内にすることでサイズが画面に均等にリサイズされる*/
-/*.flex-shrink:0を指定しない場合画面幅の余りのサイズ */
-#flex #flex4 {
-	width: 200px;
-	height: 20px;
-	background-color: #ddd;
-}
-
-/*.flex-wrapで折り返し */
-#flexWrap  {
-	display: flex;
-	flex-wrap: wrap;
-}
-#flexWrap #flexWrap1 {
-	width: 200px;
-	height: 20px;
-	background-color: #dd5268;
-}
-#flexWrap #flexWrap2 {
-	width: 200px;
-	height: 20px;
-	background-color: #dd5268;
-}
-#flexWrap #flexWrap3 {
-	width: 200px;
-	height: 20px;
-	background-color: #dd5268;
-}
-#flexWrap #flexWrap4 {
-	width: 200px;
-	height: 20px;
-	background-color: #dd5268;
-}
-/*.justify-contentで配置の仕方変更 */
-#flexjustify  {
-	display: flex;
-	justify-content: space-between;
-}
-#flexjustify #flexjustify1 {
-	width: 200px;
-	height: 20px;
-	background-color: #dd5268;
-}
-#flexjustify #flexjustify2 {
-	width: 200px;
-	height: 20px;
-	background-color: #dd5268;
-}
-#flexjustify #flexjustify3 {
-	width: 200px;
-	height: 20px;
-	background-color: #dd5268;
-}
-#flexjustify #flexjustify4 {
+#inlineBlock #inlineBlock5 {
+	/*display: inline;*/
 	width: 200px;
 	height: 20px;
 	background-color: #dd5268;
@@ -142,34 +86,62 @@ https://webukatu.com/wordpress/blog/18110/
 </head>
 <body>
 
+<section>
+	<h1>display</h1>
+</section>
 <section id="inlineBlock">
-	<span id="inlineBlock1">aaa</span>
-	<span id="inlineBlock2">bbb</span>
-	<div id="inlineBlock3">ccc</div>
-	<div id="inlineBlock4">ddd</div>
+	<h1>display要素について</h1>
+	<p>htmlにおける各タグのdisplay要素について記載</p>
+	<p>span inline(default) inlineのためサイズ指定不可(文字数によって幅が決定)</p>
+	<span id="inlineBlock2">span</span><br>
+	<p>inline-blockでwidth:200px</p>
+	<span id="inlineBlock1">span</span>
+	<br>
+	<p>div inlineにしたのでサイズ指定不可</p>
+	<div id="inlineBlock3">div </div>
+	<p>div block(default)</p>
+	<div id="inlineBlock4">div </div>
+	<p>p block(default)</dp>
+	<p id="inlineBlock5">p  </p> 
 </section>
-<hr>
-<section id="flex">
-	<span id="flex1">eee</span>
-	<span id="flex2">fff</span>
-	<div id="flex3">ggg</div>
-	<div id="flex4">hhh</div>
-</section>
-<hr>
-<section id="flexWrap">
-	<span id="flexWrap1">eee</span>
-	<span id="flexWrap2">fff</span>
-	<div id="flexWrap3">ggg</div>
-	<div id="flexWrap4">hhh</div>
-</section>
-<hr>
-<section id="flexjustify">
-	<span id="flexjustify1">eee</span>
-	<span id="flexjustify2">fff</span>
-	<div id="flexjustify3">ggg</div>
-	<div id="flexjustify4">hhh</div>
+<section>
+<h2>各タグのデフォルトdisplay値</h2>
+<table>
+<thead>
+	<tr><th>display</th><th>htmlタグ</th></tr>
+</thead>
+<tbody>
+	<tr><td>block</td><td>div,p,h1,h2,h3,h4,h5,h6,ul,ol,form,option,main,header,footer,section,nav,article,aside,body,html</td></tr>
+	<tr><td>inline</td><td>a,span,img,iframe,video,label,br</td></tr>
+	<tr><td>inline-block</td><td>input,textarea,select</td></tr>
+	<tr><td>list-item</td><td>li</td></tr>
+	<tr><td>table</td><td>table</td></tr>
+	<tr><td>table-row-group</td><td>tbody</td></tr>
+	<tr><td>table-row</td><td>tr</td></tr>
+	<tr><td>table-cell</td><td>td,th</td></tr>
+	<tr><td>none</td><td>head,style,script,meta,title,link</td></tr>
+</tbody>
+</table>
 </section>
 
+<section>
+<h2>block,inline,inline-blockについて</h2>
+<table>
+<thead>
+	<tr><th></th><th>横幅と高さの指定</th><th>横幅の初期値</th><th>高さの初期値</th><th>他要素との並び方</th><th>余白のつき方</th></tr>
+</thead>
+	<tr><td>ブロックレベル要素</td><td>可能</td><td>親要素の横幅の値</td><td>内容で決まる</td><td>改行される</td><td>勝手につくものがある</d></tr>
+	<tr><td>インライン要素</td><td>不可能</td><td>内容で決まる</td><td>内容で決まる</td><td>改行されない</td><td>上下に特殊なつき方をする</d></tr>
+	<tr><td>インラインブロック要素</td><td>可能</td><td>内容で決まる</td><td>内容で決まる</td><td>改行されない</td><td>勝手につくものがある</d></tr>
+</table>
+</section>
+
+<section>
+	<h2>p,div,spanについて</h2>
+	<p>pは段落だから説明を入れるときはこれかな</p>
+	<p>divは特に意味はないが、文章の特定の範囲を指定して一つのまとまりとして扱いたい場合に使用します。span同様に特定の場所、グループにスタイルを適用させる場合など</p>
+	<p>spanは特に意味はないが、特定の場所グループにスタイルを適用させるときなどに使用する</p>
+</section>
 
 </body>
 </html>

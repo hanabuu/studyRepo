@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>tableについて</title>
+<!-- ブラウザごとのデフォルトCSSを削除 -->
+<link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+<style>
+html {
+  font-size: 100%;
+}
+body {
+  color: #383e45;
+  font-size: 0.9rem;
+}
+h1 {
+	color: #505050;/*文字色*/
+	padding: 0.7em;/*文字周りの余白*/
+	line-height: 0.5;/*行高*/
+	background: #dbebf8;/*背景色*/
+}
+h1:before {
+	content: '●';
+	color: #505050;
+	margin-right: 5px;
+}
+h2 {
+	color: #505050;/*文字色*/
+	padding: 0.7em;/*文字周りの余白*/
+	line-height: 0.5;/*行高*/
+	background: #dbebf8;/*背景色*/
+}
+h2:before {
+	content: '●';
+	color: #505050;
+	margin-right: 5px;
+}
+/*
+ * CSSで枠線をつける
+ */
+#addBorder table {
+	/* tableの2重線を1重線に変える */
+	border-collapse: collapse;	
+}
+#addBorder table th, #addBorder table td{
+	/* 枠線をつける */
+	border: 1px solid #ddd;
+}
+/*
+ * 余白をつける
+ */
+#addPadding table {
+	/* tableの2重線を1重線に変える */
+	border-collapse: collapse;	
+}
+#addPadding table th, #addPadding table td{
+	/* 枠線をつける */
+	border: 1px solid #ddd;
+	padding: 10px 20px;
+}
+/*
+ * 幅を変更する
+ */
+#changeWidth table {
+	/* tableの2重線を1重線に変える */
+	border-collapse: collapse;	
+	table-layout:fixed;
+	width: 500px;
+}
+#changeWidth table th{
+	/* 枠線をつける */
+	border: 1px solid #ddd;
+}
+
+#changeWidth table td{
+	/* 枠線をつける */
+	border: 1px solid #ddd;
+	text-align: center;
+}
+/*
+ * tdの最初の要素に色を
+ */
+#td-first-color table {
+	/* tableの2重線を1重線に変える */
+	border-collapse: collapse;	
+	width: 500px;
+}
+#td-first-color table th{
+	/* 枠線をつける */
+	border: 1px solid #ddd;
+}
+
+#td-first-color table td{
+	/* 枠線をつける */
+	border: 1px solid #ddd;
+	text-align: center;
+}
+#td-first-color table td:first-child {
+	background: #e3faf8;	
+}
+/*
+ * 行に交互に色をつける
+ */
+#td-alternating-color table {
+	/* tableの2重線を1重線に変える */
+	border-collapse: collapse;	
+	width: 500px;
+}
+#td-alternating-color table th{
+	/* 枠線をつける */
+	border: 1px solid #ddd;
+}
+
+#td-alternating-color table td{
+	/* 枠線をつける */
+	border: 1px solid #ddd;
+	text-align: center;
+}
+#td-alternating-color table tr:nth-child(odd) {
+	background: #e3faf8;	
+}
+/*
+ * 下線だけのテーブル
+ */
+#underline-table table {
+	/* tableの2重線を1重線に変える */
+	border-collapse: collapse;	
+	width: 500px;
+}
+#underline-table table th{
+	/* 枠線をつける */
+	border-bottom: solid 5px #748ca5;
+}
+
+#underline-table table td{
+	/* 枠線をつける */
+	border-bottom: solid 1px #748ca5;
+	text-align: center;
+}
+
+</style>
+</head>
+<body>
+<section>
+	<h1>tableについて</h1>
+</section>
+<section>
+	<h2>指定なしのtable</h2>
+	<p>枠線なく、表のサイズも文字数分だけ</p>
+</section>
+<section id="default">
+<table>
+<tr>
+	<th>a</th><th>b</th>
+</tr>
+<tr>
+	<td>aaa</td><td>bbb</td>
+</tr>
+</table>
+</section>
+
+<section>
+	<h2>CSSで枠線をつける</h2>
+	<p>各セル(th,td)に「border: 1px solid #ddd;」を指定する。そのままだと二重線になるので、tableタグに「border-collapse: collapse;」を指定すれば1重線になる</p>
+</section>
+<section id="addBorder">
+<table>
+<tr>
+	<th>a</th><th>b</th>
+</tr>
+<tr>
+	<td>aaa</td><td>bbb</td>
+</tr>
+</table>
+<br>
+<section>
+	<p>tableタグに「border="1"」をつけても可能</p>
+</section>
+<table border="1">
+<tr>
+	<th>a</th><th>b</th>
+</tr>
+<tr>
+	<td>aaa</td><td>bbb</td>
+</tr>
+</table>
+</section>
+
+<section>
+	<h2>余白をつける</h2>
+	<p>余白ないとダサいし、余白をつける</p>
+</section>
+<section id="addPadding">
+<table>
+<tr>
+	<th>a</th><th>b</th>
+</tr>
+<tr>
+	<td>aaa</td><td>bbb</td>
+</tr>
+</table>
+</section>
+
+
+<section>
+	<h2>幅を変更する</h2>
+	<p>全体の幅はtableタグに「width」指定するだけ。各列で幅を変えるにはthタグごとに幅を指定しなければならない。</p>
+	<p>この時テキスト文字の位置を変えたい時は「text-align=""」で変更する</p>
+</section>
+<section id="changeWidth">
+<table>
+<tr>
+	<th>a</th><th>b</th>
+</tr>
+<tr>
+	<td>aaa</td><td>bbb</td>
+</tr>
+</table>
+</section>
+
+<section>
+	<h2>セル結合</h2>
+	<p>横方向は「colspan="結合するセルの数"」、縦方向は「rowspan="結合するセルの数"」</p>
+</section>
+<section>
+<table border="1">
+<tr>
+	<th>a</th><th>b</th>
+</tr>
+<tr>
+	<td colspan="2">aaa</td>
+</tr>
+<tr>
+	<td rowspan="2">bbb</td><td>ccc</td>
+</tr>
+<tr>
+	<td>ddd</td>
+</tr>
+</table>
+</section>
+
+<section>
+	<h2>tdの最初の要素に色を</h2>
+	<p>「td:first-child」でtdの最初の要素だけに適用</p>
+</section>
+<section id="td-first-color">
+<table>
+<tr>
+	<th>a</th><th>b</th>
+</tr>
+<tr>
+	<td>aaa</td><td>bbb</td>
+</tr>
+<tr>
+	<td>ccc</td><td>ddd</td>
+</tr>
+</table>
+</section>
+
+<section>
+	<h2>行に交互に色をつける</h2>
+	<p>「tr:nth-child(odd)」に色を指定すれば交互に色がつく。nth-childは複数の要素にスタイルを指定できる擬似クラス.引数にoddを指定することで奇数行に適用可。ただthも含まれることに注意。</p>
+	
+</section>
+<section id="td-alternating-color">
+<table>
+<tr>
+	<th>a</th><th>b</th>
+</tr>
+<tr>
+	<td>aaa</td><td>bbb</td>
+</tr>
+<tr>
+	<td>ccc</td><td>ddd</td>
+</tr>
+<tr>
+	<td>eee</td><td>fff</td>
+</tr>
+</table>
+</section>
+
+<section>
+	<h2>下線だけのテーブル</h2>
+	<p>th,tdに「border-bottom」を指定する</p>
+</section>
+<section id="underline-table">
+<table>
+<tr>
+	<th>a</th><th>b</th>
+</tr>
+<tr>
+	<td>aaa</td><td>bbb</td>
+</tr>
+<tr>
+	<td>ccc</td><td>ddd</td>
+</tr>
+<tr>
+	<td>eee</td><td>fff</td>
+</tr>
+</table>
+</section>
+
+<section>
+<p>参考</p>
+<a href="https://web-camp.io/magazine/archives/98320">tableタグで作った表をCSSでデザインする方法！レスポンシブ対応についても解説</a>
+</section>
+</body>
+</html>
