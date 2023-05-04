@@ -108,7 +108,7 @@ h2:before {
 }
 #td-alternating-color table th{
 	/* 枠線をつける */
-	border: 1px solid #ddd;
+	border: 1px solid #ccc;
 }
 
 #td-alternating-color table td{
@@ -116,7 +116,9 @@ h2:before {
 	border: 1px solid #ddd;
 	text-align: center;
 }
-#td-alternating-color table tr:nth-child(odd) {
+/* #td-alternating-color table tr:nth-child(odd) { */
+#td-alternating-color table tr:nth-child(2n-1) {
+
 	background: #e3faf8;	
 }
 /*
@@ -138,6 +140,18 @@ h2:before {
 	text-align: center;
 }
 
+/* レスポンシブ対応だけど、できてなさそう */
+@media screen and (max-width: 600px) {
+
+	#td-alternating-color table {
+		/* tableの2重線を1重線に変える */
+		border-collapse: collapse;	
+		width: 500px;
+		overflow-x: scroll;
+		white-space: nowrap;
+	}
+
+}
 </style>
 </head>
 <body>
@@ -259,7 +273,7 @@ h2:before {
 
 <section>
 	<h2>行に交互に色をつける</h2>
-	<p>「tr:nth-child(odd)」に色を指定すれば交互に色がつく。nth-childは複数の要素にスタイルを指定できる擬似クラス.引数にoddを指定することで奇数行に適用可。ただthも含まれることに注意。</p>
+	<p>「tr:nth-child(odd)」に色を指定すれば交互に色がつく。nth-childは複数の要素にスタイルを指定できる擬似クラス.引数にoddを指定することで奇数行に適用可。「2n-1」でもOK.偶数行は2n指定でOK.奇数行の場合はtrに対する指定だからth行も含まれてしまう。</p>
 	
 </section>
 <section id="td-alternating-color">
