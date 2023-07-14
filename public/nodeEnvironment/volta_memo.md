@@ -50,6 +50,13 @@ PS F:\nodejs> volta list all
     Packages:
 ```
 
+## プロジェクトにnodeのバージョンを固定
+プロジェクトフォルダに行って、以下のコマンドを実行
+
+```
+> volta pin node@14.15.3
+```
+
 ## 参考
 [Node.jsのバージョン管理はVoltaに決定](https://zenn.dev/aiueda/articles/7dcecaa05d4f24)
 [Windows 環境から Node.js を完全に削除する方法をやってみた](https://dev.classmethod.jp/articles/completely-uninstall-nodejs-from-windows/)
