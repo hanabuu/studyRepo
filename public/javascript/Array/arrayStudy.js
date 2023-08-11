@@ -1,5 +1,10 @@
 'use strict'
 
+/**
+ * 配列操作サンプル
+ * https://zenn.dev/rpf_nob/articles/javascript-array-manipulation
+ */
+
 // 写真のサンプルデータ
 const photoList = [
     {
