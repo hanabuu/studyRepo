@@ -3,6 +3,8 @@
 
 参考)
 [とほほのPromise入門](http://www.tohoho-web.com/ex/promise.html)
+[async/await 入門（JavaScript）](https://qiita.com/soarflat/items/1a9613e023200bbebcb3)
+[Node.js v10のfsでasync/await](https://qiita.com/sl2/items/fb500ff79b581ca88c26)
 
 #### callbackについて
 

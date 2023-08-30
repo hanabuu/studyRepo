@@ -60,3 +60,8 @@ import App from './App.vue'
 ## App.vueで使う
 
 ``` <router-link to="[router.tsで指定したアドレス]">[文字列]</router-link> ```でリンクを作成し、```<router-view />```に表示する。
+
+## 参考
+
+[VueRouter公式](https://v3.router.vuejs.org/ja/)
+[VueRouterの基本とルーティングを構築するはじめの一歩](https://www.ritolab.com/posts/180)
