@@ -2,7 +2,7 @@ const arr1 = [1, 2, 3];
 const arr2 = [4, 5, 6];
 
 // Concatenate arrays using spread operator
-const concatenatedArr = [...arr1, arr2];
+const concatenatedArr = [...arr1, arr2];        // スプレッド構文つかう
 const concatenatedArr2 = [...arr1, ...arr2];
 console.log(concatenatedArr);  // [1,2,3,[4,5,6]]
 console.log(concatenatedArr2); // [1,2,3,4,5,6]
