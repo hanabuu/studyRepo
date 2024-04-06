@@ -26,7 +26,27 @@
         // console.log("aa");
         fetchFunc(
             "https://service.api.metro.tokyo.lg.jp//api/t000022d0000100001-667ebc708c1d5cffe85649d74c6c7039-0/json?limit=100&offset=0",
-            {}
+            {
+                "column": [
+                    "市区町丁",
+                    "侵入窃盗計",
+                    "侵入窃盗金庫破り",
+                    "侵入窃盗事務所荒し",
+                    "侵入窃盗空き巣",
+                    "侵入窃盗忍込み",
+                    "侵入窃盗その他"
+                ],
+                // "searchCondition": {
+                //     "conditionRelationship": "and",
+                //     "stringAndSearch": [
+                //         {
+                //             "column": "test",
+                //             "relationship": "eq",
+                //             "condition": "新宿区"
+                //         }
+                //     ]
+                // }
+            }
         ).then(data => {
             console.log(data);
         });
