@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>東京都オープンデータWebAPIfetchTest</title>
+<style>
+
+</style>
+<script>
+    const fetchFunc = async (url = "", data = {}) => {
+        const response = await fetch(url, {
+            method: "POST",
+            // mode: "cors", // no-cors, *cors, same-origin
+            // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            // credentials: "include", // include, *same-origin, omit
+            headers: {
+                "Content-Type": "application/json",  // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            // redirect: "follow", // manual, *follow, error
+            // referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify(data), // 本体のデータ型は "Content-Type" ヘッダーと一致させる必要があります
+        });
+        return response.json();
+    }
+    const fetchButtonPush = () => {
+        // console.log("aa");
+        fetchFunc(
+            "https://service.api.metro.tokyo.lg.jp//api/t000022d0000100001-667ebc708c1d5cffe85649d74c6c7039-0/json?limit=100&offset=0",
+            {}
+        ).then(data => {
+            console.log(data);
+        });
+    }
+</script>
+</head>
+<body>
+<hr>
+<input type="button" id="test1" value="test1" onclick="fetchButtonPush()">
+
+</body>
+</html>
