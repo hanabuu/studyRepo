@@ -7,49 +7,96 @@
 
 </style>
 <script>
-    const fetchFunc = async (url = "", data = {}) => {
-        const response = await fetch(url, {
-            method: "POST",
-            // mode: "cors", // no-cors, *cors, same-origin
-            // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-            // credentials: "include", // include, *same-origin, omit
-            headers: {
-                "Content-Type": "application/json",  // 'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            // redirect: "follow", // manual, *follow, error
-            // referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-            body: JSON.stringify(data), // 本体のデータ型は "Content-Type" ヘッダーと一致させる必要があります
+    const tokyoOpenData = "https://service.api.metro.tokyo.lg.jp//api/t000022d0000100001-667ebc708c1d5cffe85649d74c6c7039-0/json";
+    const limitStr = "?limit=";
+    let limit = 0;
+    const offsetStr = "&offset=";
+    let offset = 0;
+    const requestBodyData = {
+        "column": [
+            "市区町丁",
+            "侵入窃盗計",
+            "侵入窃盗金庫破り",
+            "侵入窃盗事務所荒し",
+            "侵入窃盗空き巣",
+            "侵入窃盗忍込み",
+            "侵入窃盗その他"
+        ],
+        // "searchCondition": {
+        //     "conditionRelationship": "and",
+        //     "stringAndSearch": [
+        //         {
+        //             "column": "test",
+        //             "relationship": "eq",
+        //             "condition": "新宿区"
+        //         }
+        //     ]
+        // }
+    };
+
+    const dammyFetch = (url = "", data = {}) => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(url);
+            }, 1000);
         });
-        return response.json();
     }
-    const fetchButtonPush = () => {
-        // console.log("aa");
-        fetchFunc(
-            "https://service.api.metro.tokyo.lg.jp//api/t000022d0000100001-667ebc708c1d5cffe85649d74c6c7039-0/json?limit=100&offset=0",
-            {
-                "column": [
-                    "市区町丁",
-                    "侵入窃盗計",
-                    "侵入窃盗金庫破り",
-                    "侵入窃盗事務所荒し",
-                    "侵入窃盗空き巣",
-                    "侵入窃盗忍込み",
-                    "侵入窃盗その他"
-                ],
-                // "searchCondition": {
-                //     "conditionRelationship": "and",
-                //     "stringAndSearch": [
-                //         {
-                //             "column": "test",
-                //             "relationship": "eq",
-                //             "condition": "新宿区"
-                //         }
-                //     ]
-                // }
-            }
-        ).then(data => {
-            console.log(data);
-        });
+    const fetchFunc = (url = "", data = {}) => {
+        return new Promise((resolve, reject) => {
+            const response = fetch(url, {
+                method: "POST",
+                // mode: "cors", // no-cors, *cors, same-origin
+                // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                // credentials: "include", // include, *same-origin, omit
+                headers: {
+                    "Content-Type": "application/json",  // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                // redirect: "follow", // manual, *follow, error
+                // referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                body: JSON.stringify(data), // 本体のデータ型は "Content-Type" ヘッダーと一致させる必要があります
+            }).then(response => {
+                resolve(response.json());
+            });
+        })
+    }
+    const fetchButtonPush = async () => {
+        console.log(tokyoOpenData + limitStr + limit.toString() + offsetStr + offset.toString());
+        
+        let data = await fetchFunc(
+            tokyoOpenData + limitStr + 1 + offsetStr + 0,
+            requestBodyData
+        );
+        console.log(data.total);
+        for(let i=0; i<data.total; i=i+100){
+            let res = await dammyFetch(
+                tokyoOpenData + limitStr + 100 + offsetStr + i,
+                requestBodyData
+            );
+            console.log(res);
+        }
+        
+        // fetchFunc(
+        //     tokyoOpenData + limitStr + 1 + offsetStr + 0,
+        //     requestBodyData
+        // ).then(data => {
+        //     console.log(data.total);
+        //     for(let i=0; i<data.total; i=i+100){
+        //         // console.log(i);
+        //         dammyFetch(
+        //             tokyoOpenData + limitStr + 100 + offsetStr + i,
+        //             requestBodyData
+        //         ).then(ret => {
+        //             console.log(ret);
+        //         });
+        //         // fetchFunc(
+        //         //     tokyoOpenData + limitStr + 100 + offsetStr + i,
+        //         //     requestBodyData
+        //         // ).then(ddata => {
+        //         //     console.log(ddata);
+        //         // });
+        //     }
+        // });
+        
     }
 </script>
 </head>
