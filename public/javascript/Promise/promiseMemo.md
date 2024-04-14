@@ -78,3 +78,6 @@ myFunc().then(function(result){
 
 #### await/async
 * https://qiita.com/soarflat/items/1a9613e023200bbebcb3
+
+
+** Promiseを返す関数はawaitをつけるか.then()で戻り値をとること！！async関数でない場合は.then()になる。async関数内ならawaitでよい **
