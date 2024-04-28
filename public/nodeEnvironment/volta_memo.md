@@ -57,6 +57,13 @@ PS F:\nodejs> volta list all
 > volta pin node@14.15.3
 ```
 
+## 最新のnodeを入れる
+
+```
+> volta install node
+```
+
 ## 参考
 [Node.jsのバージョン管理はVoltaに決定](https://zenn.dev/aiueda/articles/7dcecaa05d4f24)
 [Windows 環境から Node.js を完全に削除する方法をやってみた](https://dev.classmethod.jp/articles/completely-uninstall-nodejs-from-windows/)
+[VoltaでNode.jsをインストールする](https://zenn.dev/longbridge/articles/219f7fa01032a3)

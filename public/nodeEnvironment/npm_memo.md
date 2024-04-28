@@ -1,5 +1,39 @@
 # npm
 
+## init
+例
+```
+> npm init
+package name: (パッケージの名前)
+version: (バージョン)
+description: (説明)
+entry point: (index.js)
+test command: node index.js
+git repository: (git リポジトリ―)
+keywords: (キーワード)
+author: (作成者))
+license: (ISC)
+About to write to C:\temp\nodeWork\workspace\makeIncidentList\package.json:
+
+{
+  "name": "~",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "keywords": [
+    "~"
+  ],
+  "author": "~",
+  "license": "ISC",
+  "description": ""
+}
+
+
+Is this OK? (yes)
+```
+
 ## proxy
 
 ### linux
