@@ -62,6 +62,10 @@ export const substr_b = (str: string, begin: number, byteNum: number): string =>
 
 ```
 
+* trim()
+前後の空白を削除
+
 ## 参考
 [JavaScriptでマルチバイト文字列のsubstringは問題なく動く](https://zenn.dev/leaner_dev/articles/20221014-javascript-unicode-substring)
 [JavaScriptでバイト単位で文字列を切り取る方法](https://www.sukerou.com/2022/10/javascript.html)
+[JavaScript【trim】文字列の空白を削除](https://programmercollege.jp/column/7713/)

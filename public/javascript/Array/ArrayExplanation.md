@@ -37,3 +37,11 @@
     })
     ```
 
+## 重複削除
+以下がお気に入り
+
+``` javascript
+const arrayB = [...new Set(arrayA)];
+```
+
+[JavaScriptで配列の重複を削除する方法](https://qiita.com/kotakin_dev/items/a19a5a2359144e3ecf1c)
