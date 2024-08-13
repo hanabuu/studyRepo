@@ -45,3 +45,11 @@ const arrayB = [...new Set(arrayA)];
 ```
 
 [JavaScriptで配列の重複を削除する方法](https://qiita.com/kotakin_dev/items/a19a5a2359144e3ecf1c)
+
+[JavaScriptの配列の使い方まとめ。要素の追加,結合,取得,削除。](https://qiita.com/takeharu/items/d75f96f81ff83680013f)
+
+[【JavaScript】ちょっとした配列操作tips](https://zenn.dev/rpf_nob/articles/javascript-array-manipulation)
+
+[JavaScript の Array.some と Array.includes の使い分け、値・参照型の動作の違い](https://qiita.com/Nossa/items/4a425e57ec4b7eedb7cb)
+
+[配列操作(追加, 削除, filter, map, reduceなど)](https://www.wakuwakubank.com/posts/280-javascript-array-helper/#index_id4)
