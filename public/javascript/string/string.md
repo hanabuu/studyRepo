@@ -69,3 +69,6 @@ export const substr_b = (str: string, begin: number, byteNum: number): string =>
 [JavaScriptでマルチバイト文字列のsubstringは問題なく動く](https://zenn.dev/leaner_dev/articles/20221014-javascript-unicode-substring)
 [JavaScriptでバイト単位で文字列を切り取る方法](https://www.sukerou.com/2022/10/javascript.html)
 [JavaScript【trim】文字列の空白を削除](https://programmercollege.jp/column/7713/)
+
+[JavaScript 正規表現まとめ](https://qiita.com/iLLviA/items/b6bf680cd2408edd050f)
+[正規表現チェッカー JavaScript版](https://www.softel.co.jp/labs/tools/regex/)
