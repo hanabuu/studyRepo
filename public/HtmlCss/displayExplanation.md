@@ -449,3 +449,9 @@ p.flex-p4 {
 * [【CSS】displayの使い方を総まとめ！inlineやblockの違いは？](https://saruwakakun.com/html-css/basic/display)
 * [【初心者向け】CSSのvertical-alignを基礎から解説](https://mteam.jp/column/10146/)
 * [【CSS】justify-contentプロパティの使い方と実装例を解説！！ ](https://webukatu.com/wordpress/blog/18110/)
+
+### gridについて
+* [【CSS】gridでできるこんなレイアウト10選（grid関連プロパティ総ざらい）](https://zenn.dev/kagan/articles/4f96a97aadfcb8)
+
+### その他
+* [CSSで中央寄せする9つの方法（縦・横にセンタリング）](https://saruwakakun.com/html-css/basic/centering)
