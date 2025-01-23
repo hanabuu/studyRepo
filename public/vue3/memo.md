@@ -18,3 +18,10 @@
 |destroyed / unmounted|Vueインスタンスを破棄した後|
 
 [【Vue2 / Vue3】ライフサイクルフック](https://qiita.com/whopper1962/items/1a99169ba868f94e4c94#mounted)
+
+## v-for 
+
+* 単純ループのやり方
+```
+v-for="n in 10
+```

@@ -17,7 +17,7 @@ const photoList = [
  * 任意のキーを取得するサンプル
  */
 const getSomeKeyData = () => {
-    // 配列データのkeyだけを取得する
+    // 配列データのidだけを取得する
     console.log(photoList.map(ret => ret.id));
 }
 

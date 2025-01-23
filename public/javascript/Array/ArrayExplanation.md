@@ -81,6 +81,19 @@ const filteredArray = data.filter(elem=>{
 })
 ```
 
+## 連想配列（JSON）におけるkey,valueの取得
+
+```
+const list = {
+    id: 1,
+    count: 10,
+    propaty: "aaaa"
+}
+
+console.log(Object.keys(list));  // ['id', 'count', 'propaty']
+console.log(Object.values(list)); // [1, 10, 'aaaa']
+```
+
 [JavaScriptで配列の重複を削除する方法](https://qiita.com/kotakin_dev/items/a19a5a2359144e3ecf1c)
 
 [JavaScriptの配列の使い方まとめ。要素の追加,結合,取得,削除。](https://qiita.com/takeharu/items/d75f96f81ff83680013f)
