@@ -21,4 +21,19 @@ const getSomeKeyData = () => {
     console.log(photoList.map(ret => ret.id));
 }
 
+
+const getSomesKeyData = () => {
+    console.log(photoList.map(ret => {
+        return [ret.id, ret.name];
+    }));
+    const result = [];
+    let tmp = photoList.map(ret => {
+        return [ret.id, ret.name];
+    })
+    // console.log(val)
+    tmp.map(ret => result.push(ret))
+    console.log(result)
+}
+
 getSomeKeyData();
+getSomesKeyData();
