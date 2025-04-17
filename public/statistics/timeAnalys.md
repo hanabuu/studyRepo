@@ -12,6 +12,8 @@
 [Windows 版 Anaconda で TensorFlow 環境構築](https://qiita.com/exy81/items/48314b968d9fad6170c8)
 
 - エラー出たけど、実行はできた。
+
+``` text
 <details>
 　<summary>実行結果</summary>
     <p>
@@ -128,3 +130,4 @@
     (base) PS C:\temp\PythonWork\testProphet> 
     </p>
 </details>
+```
