@@ -11,6 +11,7 @@
 ## triangle
 
 [triangle coliss](https://coliss.com/articles/build-websites/operation/css/css-triangle-shapes.html)
+[【CSS】borderを使って、三角形作るのはやめませんか？](https://qiita.com/degudegu2510/items/09f34d4b218c9df6bb57)
 [CSS Triangle Generators](https://css-generators.com/triangle-shapes/)
 
 [test](./exampleCSS.html)
