@@ -10,7 +10,11 @@
 
 ## GoogleMock
 
-### 参考サイト
+``` Bash
+$ g++ IWaterVolumeSensor.cpp KettleController.cpp KettleController_test.cpp -o kettle -g -pthread -lgtest_main -lgtest -lgmock_main -lgmock
+```
+
+## 参考サイト
 
 - [Google Mock 1 – Google Test のカバレッジ計測を試してみた #4](https://www.gaio.co.jp/gaioclub/gtest_coverage_blog04/)
 - [GoogleMock を C 言語で使う方法をハックしてみた](https://futurismo.biz/archives/306/)
