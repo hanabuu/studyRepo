@@ -1,5 +1,15 @@
 # forever
 
+- [Node.jsアプリをLinux環境で常駐化させる　forever編](https://qiita.com/chihiro/items/24ca8ac81cb20c22b47e)
+
+## install
+
+```
+$ npm install -g forever
+```
+
+-- -gでグローバルにインストールしないと使えないみたい。
+
 ## list表示
 
 ```
