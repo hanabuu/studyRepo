@@ -65,6 +65,36 @@ d="M0,0 L10,10 V-10 z"
     </circle>
 </svg>
 
+<svg viewBox="0 0 100 100">
+    <rect x="10" y="10" width="50" height="50" rx="30" ry="30" stroke="black" stroke-width="1" fill="none">0</rect>
+    <rect x="32" y="15" width="5" height="5" rx="3" ry="3" stroke="black" stroke-width="1" fill="none">1</rect>
+    <rect x="14" y="33" width="5" height="5" rx="3" ry="3" stroke="black" stroke-width="1" fill="none"/>2</rect>
+    <rect x="50" y="33" width="5" height="5" rx="3" ry="3" stroke="black" stroke-width="1" fill="none"/>3</rect>
+    <rect x="32" y="50" width="5" height="5" rx="3" ry="3" stroke="black" stroke-width="1" fill="none"/>4</rect>
+</svg>
+
 ## 参考
 
 [svg 要素の基本的な使い方まとめ](http://defghi1977.html.xdomain.jp/tech/svgMemo/svgMemo_03.htm)
+[実装の仕組みが分かれば簡単！画像の一部を切り取るカットアウトを実装する CSS と SVG のテクニック | コリス](https://coliss.com/articles/build-websites/operation/css/cut-out-effect-css-or-svg.html)
+[最近見かける、粒子の粗いグラデーション！ほんの少しの CSS と SVG で実装できるの知ってた？](https://coliss.com/articles/build-websites/operation/work/grainy-gradients.html)
+[SVG を使うときに知っておくといいことをまとめました](https://qiita.com/manabuyasuda/items/01a76204f97cd73ffc4e)
+[コードで描く SVG 　 JavaScript 編](https://tiltilmitil.co.jp/blog/1532)
+[コードで描く SVG 　図形/テキスト編](https://tiltilmitil.co.jp/blog/1494)
+[10 分でわかる SVG 基礎編](https://atmarkit.itmedia.co.jp/ait/articles/1206/01/news143.html)
+[もっと早く知りたかった！SVG を扱うなら知っておきたいタグ＆プロパティまとめ](https://ferret-plus.com/7522)
+[変幻自在なグラフィック表現！CSS, SVG, Canvas でマスクを使いこなせ - ICS MEDIA](https://ics.media/entry/210701/)
+[君は使い分けられるか？CSS/SVG/Canvas のビジュアル表現でできること・できないこと - ICS MEDIA](https://ics.media/entry/200520/)
+[svg のリファクタリングの流れ](https://qiita.com/xrxoxcxox/items/22a69d1ade7e2866e26a)
+
+### Zdog
+
+[SVG や Canvas で実装した平らな要素を 3D モデルでレンダリングできる超軽量 JavaScript ライブラリ -Zdog](https://coliss.com/articles/build-websites/operation/javascript/3d-engine-for-canvas-svg-zdog.html)
+
+### 商用無料のやつ
+
+[商用利用無料、UI デザイン用の SVG アイコンが 1000 種類以上！ 改変・再配布も可の太っ腹ライセンス- MingCute Icon](https://coliss.com/articles/freebies/mingcute-icon.html)
+[商用利用も完全無料！ UI デザインに最適、シンプルなデザインでパフォーマンスに影響を与えない超軽量の SVG アイコン素材 -Next Icons | コリス](https://coliss.com/articles/build-websites/operation/work/next-icons-lightweight-svg.html)
+[SVG アイコン素材サイト 14 選【無料・商用利用可】Notion からサイト制作まで自由に。 | KodoCode](https://kodocode.net/design-free-iconsvg/)
+[もうこれで SVG アイコンを探すときに困らない！ 無料で利用できるアイコンライブラリを横断検索できる便利サイト -Icônes | コリス](https://coliss.com/articles/build-websites/operation/work/icon-explorer-with-searching-icones.html)
+[無料で人気ブランドのロゴなど 3000 個以上の SVG アイコンをダウンロードできるサイト「Simple Icons」 - GIGAZINE](https://gigazine.net/news/20240922-simple-icons/)
