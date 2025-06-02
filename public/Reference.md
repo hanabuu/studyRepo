@@ -27,6 +27,7 @@
 [今どきの言語ならこの 2 択、歯ごたえ十分の Rust か型を使える TypeScript か | 日経クロステック（xTECH）](https://xtech.nikkei.com/atcl/nxt/column/18/02872/062500002/)
 [Rust でライフゲームを作ってみた | DevelopersIO](https://dev.classmethod.jp/articles/rust-lifegame-console/)
 [Rust 開発のはじめかた](https://zenn.dev/akibe/articles/7bcd76f4dbc2bc)
+[Bridge パターンで Tauri アプリ開発を楽にしてみた](https://zenn.dev/coefont/articles/tauri-bridge)
 
 ## WebAssembly
 
