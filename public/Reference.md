@@ -82,3 +82,17 @@ HPEとRed Hatが提案するのが「仮想マシンをコンテナ上で動作�
 [スマートホーム規格「Matter」の策定団体である CSA が IoT 機器のセキュリティ標準規格を発表 - GIGAZINE](https://gigazine.net/news/20240319-csa-product-security-verified-mark/)
 [Matter を体感！　次世代スマートホーム規格で作る「便利で快適な住環境」：CEATEC 2024 でネクスティ エレクトロニクスがデモを披露 - EE Times Japan](https://eetimes.itmedia.co.jp/ee/spv/2410/08/news006.html)
 [Matter 対応デバイスの自作に挑戦、Node.js の公開モジュールとラズパイを使う | 日経クロステック（xTECH）](https://xtech.nikkei.com/atcl/nxt/column/18/01109/031000066/)
+
+## AWS
+
+- [第 1 回　 AWS を知る 1 日～サーバ職人にお願いしなくてもインフラを作れる時代がやってきた？！：2022 年，AWS を図解で学ぼう～最短 1 日で基礎が身に付く（図解即戦力 Amazon Web Services のしくみと技術がこれ 1 冊でしっかりわかる教科書 連動企画）｜ gihyo.jp … 技術評論社](https://gihyo.jp/dev/serial/01/zukai-aws/0001)
+- [EC2 から S3 へアクセスする 4 つのルートとコスト - NRI ネットコム Design and Tech Blog](https://tech.nri-net.com/entry/access_routes_from_EC2_to_S3)
+- [AWS App Mesh (with Fargate) 再入門 | DevelopersIO](https://dev.classmethod.jp/articles/reintroduction-aws-app-mesh-with-fargate/)
+- [AWS 側の目線から理解する、Google Cloud ロードバランサの世界 - How elegant the tech world is...!](https://iselegant.hatenablog.com/entry/google-cloud-load-balancer)
+- [「AWS 基礎 100 本ノック」日本公式が公開　クラウドの基礎や最新動向の調べ方、動画で解説 - ITmedia NEWS](https://www.itmedia.co.jp/news/spv/2308/28/news120.html)
+- [よくある AWS サーバーレス構成のシーケンス図を Markdown（Mermaid）で描いてみた | DevelopersIO](https://dev.classmethod.jp/articles/drawing-a-sequence-diagram-of-a-common-aws-serverless-configuration-with-mermaid/)
+- [料金 - Amazon CloudFront | AWS](https://aws.amazon.com/jp/cloudfront/pricing/)
+- [Amazon CloudFront とは何ですか? - Amazon CloudFront](https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/Introduction.html)
+- [【AWS の CDN サービス】Amazon CloudFront の料金からメリットまで徹底解説！ - 高品質な CDN サービス CloudPlex Delivery](https://www.cloudplex.jp/blog/cdn-service/amazoncloudfront/)
+- [キーペア、スケーリング、負荷分散、エッジ環境――“今どき”の「サーバ運用に必要な技術」超入門：AWS で学ぶクラウド時代のサーバ＆ストレージ基礎知識（4） - ＠IT](https://atmarkit.itmedia.co.jp/ait/spv/2412/20/news010.html)
+- [データはどうやって保存されているのか？――基本的な仕組みを理解するための「ファイルストレージ」超入門：AWS で学ぶクラウド時代のサーバ＆ストレージ基礎知識（5） - ＠IT](https://atmarkit.itmedia.co.jp/ait/spv/2505/19/news011.html)
