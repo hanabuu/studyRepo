@@ -1,5 +1,70 @@
 # 配列操作について
 
+[Array - MDN Web Docs](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array)
+
+## 配列の静的プロパティ
+
+|プロパティ|内容||
+|--|--|--|
+|[Array.from()](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/from)|新しい Array インスタンスを生成する。||
+|Array.fromAsync()|非同期反復可能、反復可能、配列風オブジェクトを元に、新しい Array インスタンスを作成します。||
+|Array.isArray()|配列であれば true を、配列でなければ false を返します。||
+|[Array.of()](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/of)|可変個の引数から、引数の個数や型に関わらず、新しい Array インスタンスを生成します|コンストラクタとの違いは？|
+
+## 配列のインスタンスプロパティ
+
+これらのプロパティは Array.prototype で定義されており、すべての Array インスタンスで共有されます。
+
+|プロパティ|内容||
+|--|--|--|
+|Array.prototype.constructor|このインスタンスオブジェクトを作成したコンストラクター関数です。 Array インスタンスの場合、初期値は Array コンストラクターです。|？|
+|Array.prototype[Symbol.unscopables]|ES2015 版以前の ECMAScript 標準に含まれておらず、 with による文のバインドの目的には無視されるプロパティ名を含みます。|？|
+|lengt|配列内の要素数を反映します。||
+
+## インスタンスメソッド
+
+|メソッド|内容||
+|--|--|--|
+|Array.prototype.at()|指定された位置にある配列の項目を返します。負の整数も指定可能で、末尾の項目から戻ります。||
+|Array.prototype.concat()|この配列に他の配列や値を結合して新しい配列を返します。||
+|Array.prototype.copyWithin()|配列内で配列内の連続した要素を複写します。||
+|Array.prototype.entries()|新しい配列イテレーターオブジェクトを返します。このオブジェクトは、配列中のそれぞれの位置に対するキー/値の組を保持しています。||
+|Array.prototype.every()|指定したテスト関数を配列中のすべての要素が満たした場合に true を返します。||
+|Array.prototype.fill()|配列内の指定した開始位置から終了位置までの要素を固定値で埋めます。||
+|Array.prototype.filter()|指定したフィルタリング関数が true を返す、配列中の要素を格納した新しい配列を生成します。||
+|Array.prototype.find()|指定されたたテスト関数を満たす、配列の最初の要素の値を返します。適切な要素が見つからなかった場合は undefined を返します。||
+|Array.prototype.findIndex()|指定されたテスト関数を満たす、配列の最初の要素の添字を返します。適切な要素が見つからなかった場合は -1 を返します。||
+|Array.prototype.findLast()|指定されたたテスト関数を満たす、配列の最後の要素の値を返します。適切な要素が見つからなかった場合は undefined を返します。||
+|Array.prototype.findLastIndex()|指定されたテスト関数を満たす、配列の最後の要素の添字を返します。適切な要素が見つからなかった場合は -1 を返します。||
+|Array.prototype.flat()|すべての部分配列の要素を指定された深さまで再帰的に連結した新しい配列を返します。||
+|Array.prototype.flatMap()|コールバック関数を呼び出し元の配列の各要素に適用し、その結果を一段階平坦化した新しい配列を返します。||
+|Array.prototype.forEach()|配列中のそれぞれの要素について関数を呼び出します。||
+|Array.prototype.includes()|この配列が特定の要素を含むかどうか判定し、その結果を true または false で返します。||
+|Array.prototype.lastIndexOf()|指定された値と等しい値を持つ最後の (添字の一番大きい) 要素の添字を返します。見つからない場合、-1 を返します。||
+|Array.prototype.indexOf()|指定された値と等しい値を持つ最初の（添字の一番小さい）要素の添字を返します。見つからない場合、-1 を返します。||
+|Array.prototype.join()|配列のすべての要素を結合した文字列を返します。||
+|Array.prototype.keys()|新しい配列イテレーターを返します。このオブジェクトは配列中の各添字のキーを保持します。||
+|Array.prototype.map()|配列内のすべての要素に対して与えられた関数を呼び出し、その結果を格納した新しい配列を生成します。||
+|Array.prototype.pop()|配列から最後の要素を取り除き、返値として返します。||
+|Array.prototype.unshift()|配列の最初に 1 個以上の要素を追加し、配列の変更後の length を返します。||
+|Array.prototype.push()|配列の最後に 1 個以上の要素を追加し、新しい配列の length を返します。||
+|Array.prototype.reduce()|アキュムレーターと配列内のすべての要素に対して (左から右の順で) 関数を適用し、単一の値に還元します。||
+|Array.prototype.reduceRight()|アキュムレーターと配列内のすべての要素に対して (右から左の順で) 関数を適用し、単一の値に還元します。||
+|Array.prototype.reverse()|配列の要素の順番を逆転させます (最初の要素は最後に、最後の要素は最初になります)。||
+|Array.prototype.shift()|配列から最初の要素を取り除き、その要素を返します。||
+|Array.prototype.slice()|配列の一部を取り出して新しい配列として返します。||
+|Array.prototype.some()|指定したテスト関数を配列中の少なくとも 1 個の要素が満たした場合に true を返します。||
+|Array.prototype.sort()|配列内で要素を整列し、配列を返します。||
+|Array.prototype.splice()|配列に対して複数の要素を追加したり取り除いたりします。||
+|Array.prototype.toLocaleString()|配列とその要素を表すロケールに従った文字列を返します。Object.prototype.toLocaleString() メソッドを上書きします。||
+|Array.prototype.toReversed()|元の配列を変更せずに、要素を逆順に並べた新しい配列を返します。||
+|Array.prototype.toSorted()|元の配列を変更せずに、要素を昇順に並べた新しい配列を返します。||
+|Array.prototype.toSpliced()|元配列を変更することなく、指定された位置の要素を除去または置き換えた新しい配列を返します。||
+|Array.prototype.toString()|配列とその要素を表す文字列を返します。Object.prototype.toString() メソッドを上書きしています。||
+|Array.prototype.values()|新しい配列イテレーターオブジェクトを返します。このオブジェクトは、配列中の各添字の値を保持します。||
+|Array.prototype.with()|指定された位置の要素を指定された値で置き換えた新しい配列を、元の配列に変更を加えることなく返します。||
+|Array.prototype[Symbol.iterator]()|既定では values() 関数を返します。||
+
 ## 存在チェック（空判定）
 
 * lengthでよくね？
