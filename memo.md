@@ -78,6 +78,23 @@ year	month	day	between
 > git config user.email '～'
 ```
 
+## Linuxコマンド
+
+### find
+
+- 再帰的に検索できる
+``` text
+> find <検索対象ディレクトリ> -name "<file名>"
+> find ./ -name "test.txt"
+```
+
+### locate
+
+- システムとして全体を検索可能
+``` text
+> updatedb  :Linux内のファイル配置をアップデートする
+> locate test.txt
+```
 
 ## その他のメモ
 

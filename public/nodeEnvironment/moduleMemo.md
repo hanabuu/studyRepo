@@ -29,3 +29,25 @@ parse: { root: '',
 join: dir/dir2/test.txt
 relative: ../dir2/test.txt
 ```
+
+## dotenv
+
+- 環境変数ファイル.envを扱う（iniみたいな外部ファイルからデータを読み取れる）
+
+- .envファイル
+``` text
+OBNIZ_ID=123456789
+```
+
+- index.js
+``` js
+const obnizid=process.env.OBNIZ_ID;
+console.log(obnizid);
+```
+
+- 実行時
+```
+> node --env-file=.env index.js
+```
+
+- [Node.jsでdotenvがいらなくなったっぽいので使ってみる](https://qiita.com/n0bisuke/items/c9f8cc3b7ddd419fcf1e)
