@@ -19,7 +19,7 @@
 |--|--|--|
 |Array.prototype.constructor|このインスタンスオブジェクトを作成したコンストラクター関数です。 Array インスタンスの場合、初期値は Array コンストラクターです。|？|
 |Array.prototype[Symbol.unscopables]|ES2015 版以前の ECMAScript 標準に含まれておらず、 with による文のバインドの目的には無視されるプロパティ名を含みます。|？|
-|lengt|配列内の要素数を反映します。||
+|length|配列内の要素数を反映します。||
 
 ## インスタンスメソッド
 
@@ -168,3 +168,6 @@ console.log(Object.values(list)); // [1, 10, 'aaaa']
 [JavaScript の Array.some と Array.includes の使い分け、値・参照型の動作の違い](https://qiita.com/Nossa/items/4a425e57ec4b7eedb7cb)
 
 [配列操作(追加, 削除, filter, map, reduceなど)](https://www.wakuwakubank.com/posts/280-javascript-array-helper/#index_id4)
+
+[[JavaScript]someメソッドを使って配列をチェックする](https://zenn.dev/captain_blue/articles/how-to-use-some)
+配列の要素をすべて調べてそれぞれ調べる対象のオブジェクトに存在するか調べてる。
