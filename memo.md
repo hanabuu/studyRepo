@@ -2,7 +2,7 @@
 
 ## VSCodeショートカット
 
-必要な分の覚書
+- 必要な分の覚書
 
 |キー|動作||
 |--|--|--|
@@ -30,6 +30,7 @@
 ```
 
 * オプション
+
 |option|full name|mean|
 |--|--|--|
 |-z|--gzip|gzip形式であることを指定|
@@ -105,3 +106,4 @@ year	month	day	between
 ``` text
 > PowerShell Set-ExecutionPolicy RemoteSigned
 ```
+
