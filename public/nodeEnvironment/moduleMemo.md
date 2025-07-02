@@ -51,3 +51,4 @@ console.log(obnizid);
 ```
 
 - [Node.jsでdotenvがいらなくなったっぽいので使ってみる](https://qiita.com/n0bisuke/items/c9f8cc3b7ddd419fcf1e)
+- [【Node】dotenvで環境変数を設定する](https://qiita.com/ozaki25/items/3e2cf94f29bd0edc1979)
