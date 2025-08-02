@@ -9,6 +9,20 @@
 |Ctrl+1|左のエディターをフォーカス|分割してなければエディター部分へのフォーカスにも使える|
 |Ctrl+`|ターミナルを開く|ターミナルにフォーカスにも使える|
 
+## 画像張付け
+
+[VSCodeでMarkdownに画像を貼り付ける](https://qiita.com/IshigiwaKenichiro/items/a188bae076c8ea330ef6)
+
+- Paste Image
+   - Ctrl + Alt + Vで画像とリンクを貼ってくれる
+- 保存先変更
+  - vscodeのsetting.json
+```
+{
+  "pasteImage.path": "${currentFileDir}/images"
+}
+
+```
 ## Linuxコマンド
 
 覚書
