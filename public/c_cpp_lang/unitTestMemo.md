@@ -8,6 +8,10 @@
 - [C 言語で書いたプログラムを googletest でテストできるようにした](https://qiita.com/kaitokimuraofficial/items/b879ad6ee190f3f80afb)
 - [C++の環境をいい感じに構築](https://qiita.com/n-jun-k2/items/1b84b5b99351fb835035)
 
+### GoogleTestAPI
+
+[API使用方法](./googleTestAPI.md)
+
 ## GoogleMock
 
 ```Bash
