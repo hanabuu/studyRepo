@@ -1,0 +1,22 @@
+version: "3.3"
+
+services:
+  rust:
+    container_name: rust_todo
+    # env_file:
+    #   - .env
+    environment:
+      - DISPLAY=$DISPLAY
+      - WAYLAND_DISPLAY=$WAYLAND_DISPLAY
+      - XDG_RUNTIME_DIR=/tmp
+      - PULSE_SERVER=$PULSE_SERVER
+    build: .
+    tty: true
+    volumes:
+      - .:/workspace
+      - type: bind
+        source: /tmp/.X11-unix
+        target: /tmp/.X11-unix
+      - type: bind
+        source: "${XDG_RUNTIME_DIR}/wayland-0"
+        target: /tmp/wayland-0
