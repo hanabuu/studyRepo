@@ -14,7 +14,7 @@
 #include <string.h>
 
 #define BUFFER_MAX 1502                          //受信バッファサイズ
-#define UNIX_SOCKET_PATH "/tmp/test.unixsocket"
+#define UNIX_SOCKET_PATH "/work/unixdomain/test.unixsocket"
 
 #define TIMEOUT (1000)                          //受信タイムアウト
 

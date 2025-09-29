@@ -7,7 +7,18 @@ int main(void) {
 	if(ret < 0){
 		return -1;
 	}
-	sleep(100);	
-	endRecvThread();
-	return EXIT_SUCCESS;
+	puts("終了する場合は「9」を入力してください"); /* prints !!!Hello World!!! */
+	for(;;){
+		printf("コマンドを入力してください\n");
+		scanf("%d", &input);
+		printf("\n");
+
+		if(input == 9){
+			endRecvThread();
+			return 0;
+		} else {
+			printf("割り当ててない入力です\n");
+		}
+
+	}	return EXIT_SUCCESS;
 }

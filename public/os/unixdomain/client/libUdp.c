@@ -80,7 +80,7 @@ void endRecvThread(){
  * @author		ALSOK 英
  */
 //==========================================================
-int sendDgram(const char* sock_path, bool broadcast, const uint8_t* data, int len){
+int sendDgram(const char* sock_path, const uint8_t* data, int len){
 	int ret = 0;
 	int opt = -1;
 	int sendedLen = 0;
@@ -89,18 +89,27 @@ int sendDgram(const char* sock_path, bool broadcast, const uint8_t* data, int le
 
 	socklen_t socklen = sizeof(sun);
 
+	sock = socket(AF_LOCAL, SOCK_STREAM, 0);
+	if(sock < 0){
+		printf("ソケットオープン失敗\n");
+		return -1;
+	}
+
 	sun.sun_family = AF_LOCAL;               // UNIXドメイン
 	strcpy(sun.sun_path, sock_path);  // UNIXドメインソケットのパスを指定
 
 	ret = connect(sock, (const struct sockaddr *)&sun, sizeof(sun));
 	if(ret < 0){
 		printf("ソケット接続失敗 %d\n", ret);
+		close(sock);
 		return -1;
 	}
 
-	sendedLen = sendto(sock, data, len, 0, (struct sockaddr *)&sun, sizeof(sun));
+	// UNIXドメインソケット(SCOK_STREAM)はsendtoではなくsendを使う
+	sendedLen = send(sock, data, len, 0);
 	if(sendedLen != len){
 		printf("送信エラー 送信サイズ:%d\n", sendedLen);
+		close(sock);
 		return -3;
 	}
 

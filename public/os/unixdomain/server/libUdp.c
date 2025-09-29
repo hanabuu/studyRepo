@@ -151,6 +151,13 @@ static int create_recv_socket(const char* sock_path, int *sock, struct sockaddr_
 		return -2;
 	}
 
+	ret = listen(*sock, 1);
+    if(ret < 0){
+        printf("listen失敗 %d\n", ret);
+        close(*sock);
+        return -3;
+    }
+
 	memcpy(recv_sun, &sun, sizeof(sun));
 
 	return 0;
@@ -169,51 +176,47 @@ static int create_recv_socket(const char* sock_path, int *sock, struct sockaddr_
 //==========================================================
 static int recv_socket(int sock){
 
-	int len = 0;
-	int ret = 0;
-	uint8_t buf[BUFFER_MAX];
-	struct sockaddr_un sun;
+    int len = 0;
+    int ret = 0;
+    uint8_t buf[BUFFER_MAX];
 
+	// タイムアウト設定（例：1秒）
+    struct timeval timeout;
+    timeout.tv_sec = 1;
+    timeout.tv_usec = 0;
+
+    fd_set fds;
+    FD_ZERO(&fds);
+    FD_SET(sock, &fds);
+
+    ret = select(sock + 1, &fds, NULL, NULL, &timeout);
+    if(ret == 0){
+        // タイムアウト
+        return 2;
+    } else if(ret < 0){
+        printf("select失敗 %d\n", ret);
+        return -1;
+    }
+
+    // クライアントからの接続を受け付ける
+    int client_sock = accept(sock, NULL, NULL);
+    if(client_sock < 0){
+        printf("accept失敗\n");
+        return -1;
+    }
+
+    // データ受信
+	// recvformは主にSOCK_DGRAMで使う。SOCK_STREAMではrecvを使う
 	memset(buf, 0, sizeof(buf));
-	memset(&sun, 0, sizeof(sun));
-	socklen_t socklen = sizeof(sun);
-
-	// 受信待ちのタイムアウト時間(TIMEOUTが1000なのでtv_sec=1, tv_usec=0で1秒)
-	struct timeval tmval;
-	tmval.tv_sec = TIMEOUT / 1000;
-	tmval.tv_usec = (TIMEOUT % 1000) * 1000;
-
-	fd_set fds;
-	FD_ZERO(&fds);
-	FD_SET(sock, &fds);
-
-	// 確かここでブロッキングされる。ソケットの状態が変われば後続処理が動作し電文を受信できる
-	ret = select(sock+1, &fds, NULL, NULL, &tmval);
-	if(ret < 0) {
-		printf("受信待ち失敗 select=%d\n", ret);
-			return -1;
-	} else if(0 == ret) {
-		// printf("タイムアウト select=%d\n", ret);
-			return 1;
-	} else {
-		// printf("受信待ち成功 select=%d\n", ret);
-		// 処理続行
-	}
-
-	if(!FD_ISSET(sock, &fds)) {
-		printf("受信待ち失敗 FD_ISSET=%d\n", ret);
-		return -1;
-	}
-
-	len = recvfrom(sock, buf, sizeof(buf), 0, (struct sockaddr_un *)&sun, &socklen);
-	if(len < 0){
-		// printf("受信失敗 %d\n", len);
-	} else {
-		printf("受信長:%d\n", len);
-		// decode_bacnet_message(buf, len);
-	}
-	return 0;
-
+    len = recv(client_sock, buf, sizeof(buf), 0);
+    if(len < 0){
+        printf("受信失敗 %d\n", len);
+    } else {
+        printf("受信長:%d\n", len);
+        // decode_bacnet_message(buf, len);
+    }
+    close(client_sock);
+    return 0;
 }
 
 //==========================================================
