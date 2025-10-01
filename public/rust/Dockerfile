@@ -1,4 +1,5 @@
-FROM rust:1.69-slim-bullseye
+#FROM rust:1.69-slim-bullseye
+FROM rust:1.90-bullseye
 
 # Tauri dependencies
 # See https://tauri.app/v1/guides/getting-started/prerequisites#setting-up-linux
@@ -21,3 +22,7 @@ RUN apt-get update -y && \
 # See https://github.com/nodesource/distributions
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - &&\
     apt-get install -y nodejs
+
+# docker-compose up -d
+# docker exec -it rust_todo bash
+# docker-compose down --rmi all --volumes

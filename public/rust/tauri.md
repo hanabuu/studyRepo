@@ -33,7 +33,10 @@ sudo apt install x11-apps
 docker-compose up -d
 ```
 
-※まだできてない
+rust:1.69-slim-bullseyeだとxeyesが入れられないかもと言われ、slimなしをいれて<br>
+それでbuildできたからtauri実行しようとすると1.69古いからと言われ、1.90を入れてみたけど<br>
+まだできなかった。
+なんか環境変数の問題っぽい。
 
 ## 参考
 
