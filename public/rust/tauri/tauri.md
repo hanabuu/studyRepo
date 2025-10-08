@@ -65,3 +65,5 @@ rust:1.69-slim-bullseyeだとxeyesが入れられないかもと言われ、slim
 
 - [Docker で Tauri の環境を構築する(yew,WSLg)](https://qiita.com/Ritz/items/883337f711a48663cf64)
 - [TauriをDockerを使ってなるべく簡単に始める](https://www.tunamaguro.dev/articles/2023/05/tauri-docker/)
+- [Tauriでデスクトップアプリ開発に挑戦](https://share.google/gBV6VjSxjJ4ondbJS)
+- 
