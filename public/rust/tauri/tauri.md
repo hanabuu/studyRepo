@@ -33,10 +33,33 @@ sudo apt install x11-apps
 docker-compose up -d
 ```
 
+### dockerの中に入る
+
+```shell
+> docker exec -it rust_todo bash
+```
+
+### 消す
+ダメだったときに消すやつ
+
+``` shell
+> docker-compose down --rmi all --volumes
+```
+
 rust:1.69-slim-bullseyeだとxeyesが入れられないかもと言われ、slimなしをいれて<br>
 それでbuildできたからtauri実行しようとすると1.69古いからと言われ、1.90を入れてみたけど<br>
 まだできなかった。
 なんか環境変数の問題っぽい。
+
+### tauriのチュートリアルを試す
+
+``` shell
+> npm create tauri-app@latest
+> cd tauri-app
+> npm install
+> npm run tauri dev
+```
+
 
 ## 参考
 
