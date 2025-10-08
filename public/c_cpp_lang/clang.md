@@ -44,4 +44,14 @@ while(val){
 }
 ```
 
-Test
+## 乱数
+
+``` text
+rand(): 乱数生成
+srand()：seed設定
+```
+
+[C言語で乱数を扱う方法（rand関数とsrand関数）](https://daeudaeu.com/c_random/)
+
+- rand()で乱数を生成できるが、プログラムを終了すると毎回同じ値が取れる。
+- srand()でseedを設定することで、乱数を生成する発生系列を変更できる。一般的に時刻(time)で取得したseedを使う。
