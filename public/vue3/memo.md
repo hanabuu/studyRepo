@@ -25,3 +25,14 @@
 ```
 v-for="n in 10
 ```
+
+## v-if
+
+``` html
+<div v-if="showModal" class="main-shadow"></div>
+<button @click="showModal = true">モーダルを開く</button>
+```
+
+```js
+const showModal = ref(false)
+```

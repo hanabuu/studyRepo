@@ -44,6 +44,24 @@
 
 - [ターミナルのシンプルなUIが好きな人に！ モダンでミニマルなCSSの超軽量フレームワーク -Terminal CSS | コリス](https://coliss.com/articles/build-websites/operation/css/terminal-css.html)
 
+### viewportサンプル
+
+vw(幅),vh(高さ)をブラウザの幅の比率で指定可能。
+mdのプレビューでも見えてる範囲での割合で表示してくれる。
+em,remは全体の比率になる。つかいどころが大切
+
+<style>
+.viewportEx {
+    width: 50vw;
+    height: 50vh;
+    background-color: lightblue;
+}
+</style>
+
+<div class="viewportEx">
+    テストテスト
+</div>
+
 ### 使い方
 
 - [CSSの数学関数min()、max()、clamp()の基本的な使い方 | コリス](https://coliss.com/articles/build-websites/operation/css/three-logical-css-functions-min-max-clamp.html)
