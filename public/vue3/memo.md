@@ -22,7 +22,8 @@
 ## v-for 
 
 * 単純ループのやり方
-```
+
+``` js
 v-for="n in 10
 ```
 
@@ -36,3 +37,13 @@ v-for="n in 10
 ```js
 const showModal = ref(false)
 ```
+
+## v-model
+
+* script側の変数を入れる。inputに入れておけば、変更も反映されるはず
+
+``` js
+<input v-model="arg"/>
+
+// script側
+arg = ref

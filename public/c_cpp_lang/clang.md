@@ -55,3 +55,7 @@ srand()：seed設定
 
 - rand()で乱数を生成できるが、プログラムを終了すると毎回同じ値が取れる。
 - srand()でseedを設定することで、乱数を生成する発生系列を変更できる。一般的に時刻(time)で取得したseedを使う。
+
+## gdb
+
+[はじめてのgdb](https://qiita.com/arene-calix/items/a08363db88f21c81d351)
