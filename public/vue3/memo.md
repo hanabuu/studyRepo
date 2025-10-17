@@ -46,4 +46,5 @@ const showModal = ref(false)
 <input v-model="arg"/>
 
 // script側
-arg = ref
+arg = ref("aaa")
+```
