@@ -65,6 +65,39 @@
 |Array.prototype.with()|指定された位置の要素を指定された値で置き換えた新しい配列を、元の配列に変更を加えることなく返します。||
 |Array.prototype[Symbol.iterator]()|既定では values() 関数を返します。||
 
+## 配列の要素を削除
+
+* 配列の中の一つの要素を削除。第一引数で削除するインデックスを指定して、第二引数で削除する要素数を決めてる。
+
+``` js
+array.splice(index, 1);
+```
+
+## 配列要素を入れ替える
+
+[javascriptで配列の要素を入れ替える - リモートで働くプログラマーの検索結果](https://share.google/lx2HuKnv8t8drxZyz)
+
+``` js
+let array = [1,2,3,4,5]
+// 入れ替える要素のindex
+const index = 2;
+array.splice(index-1, 2, array[index], array[index-1]);
+console.log(array)
+
+=> [1,3,2,4,5]
+```
+
+* AIはこんな書き方
+
+``` js
+// 一つ上に
+const field = array.splice(index, 1)[0];
+array.splice(index - 1, 0, field);
+// 一つ下に
+const field = array.splice(index, 1)[0];
+array.splice(index + 1, 0, field);
+```
+
 ## 存在チェック（空判定）
 
 * lengthでよくね？

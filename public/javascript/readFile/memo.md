@@ -36,6 +36,31 @@ const readUTF8CSV = (fileName = "") => {
 };
 ```
 
+## html側でのファイル読込
+
+* cdn版のvueを使った場合で記載
+
+``` html
+<input type="file" multiple accept=".yaml" @change="loadData" />
+```
+
+``` js
+const loadData = async (e) => {
+    const files = e.target.files;
+    fileCount = files.length;
+    for(let file of files){
+        const reader = new FileReader();
+        reader.onload = () => {
+            // reader.resultでファイルの中身をとれる。
+            // 以下は読み込んだファイルの中身を改行コードで分割する例
+            const val = reader.result.split("\n");
+            console.log(val);
+        }
+        reader.readAsText(file);
+    }
+}
+```
+
 ## 参考
 
 [Node.js で DeprecationWarning を出さずに encode と decode](https://qiita.com/atsuo1203/items/3a6b588bc7d506367b75)

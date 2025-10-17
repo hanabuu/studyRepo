@@ -26,6 +26,35 @@ fs.writeFile("output.csv", csvContent, (error) => {
 
 ## ストリームを使った書き込み
 
+
+## ブラウザでファイルを保存する
+
+* ブラウザ側でファイルを保存しようとしたときFileSystemAccessAPI対応のブラウザ(Chrome系)については保存ダイアログを出して保存が可能
+
+``` js
+if (window.showSaveFilePicker) {
+    try {
+        const handle = await window.showSaveFilePicker({
+            suggestedName: 'export.yaml',
+            types: [
+                {
+                    description: 'YAML Files',
+                    accept: { 'text/yaml': ['.yaml', '.yml'] }
+                }
+            ]
+        });
+        const writable = await handle.createWritable();
+        await writable.write(yamlText);
+        await writable.close();
+    } catch (error) {
+        if (!error || error.name !== 'AbortError') {
+            console.error('YAMLファイルの保存に失敗しました。', error);
+        }
+    }
+    return;
+}
+```
+
 ## 参考
 
 [nodeJS で CSV ファイルを出力する](https://zenn.dev/hunmatu/scraps/d312f1f4897915)

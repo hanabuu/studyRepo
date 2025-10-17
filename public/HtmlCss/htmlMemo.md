@@ -58,3 +58,55 @@ width,heightでやるのはtextareaも同じ
   border: 1px solid #ccc;     /* 枠線をつける */
 }
 ```
+
+## buttonにアイコン設定（ついでに横並び）
+
+``` html
+<div class="field-buttons">
+  <button class="buttonIcon" type="button" @click="">
+    <img src="./icon/add.svg" alt="ﾌｨｰﾙﾄﾞ追加" />
+  </button>
+<button class="buttonIcon" type="button" @click="">
+  <img src="./icon/change.svg" alt="編集" />
+</button>
+<button class="buttonIcon" type="button" @click="">
+  <img src="./icon/delete.svg" alt="削除" />
+</button>
+<button class="buttonIcon" type="button" @click="">
+  <img src="./icon/up.svg" alt="上へ" />
+</button>
+<button class="buttonIcon" type="button" @click="">
+  <img src="./icon/down.svg" alt="下へ" />
+</button>
+```
+
+``` css
+/* ボタンのスタイル */
+.buttonIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  aspect-ratio: 1;
+  background-color: #e5e9e2;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.buttonIcon img {
+    width: 16px;
+    height: 16px;
+}
+
+@media (any-hover: hover) {
+  .buttonIcon {
+    transition: background-color 0.2s;
+  }
+
+  .buttonIcon:hover {
+    background-color: #54802f;
+  }
+}
+```
