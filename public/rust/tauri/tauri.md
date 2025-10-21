@@ -60,6 +60,10 @@ rust:1.69-slim-bullseyeだとxeyesが入れられないかもと言われ、slim
 > npm run tauri dev
 ```
 
+## 別コンテナ
+
+* dockerfileの別アプローチでnodeコンテナ上にtauriを入れる方法
+* docker-composeはtauri-appがある前提となっているため、適宜volumeにマウントできるように配置しておくこと
 
 ## 参考
 

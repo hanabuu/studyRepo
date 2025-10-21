@@ -1,0 +1,42 @@
+services:
+  frontend:
+    build:
+      context: .
+    working_dir: /workspace/tauri-app
+    command: npm run dev -- --host 0.0.0.0 --port 5173
+    volumes:
+      - ./tauri-app:/workspace/tauri-app
+      - cargo-cache:/root/.cargo
+      - rustup-cache:/root/.rustup
+      - npm-cache:/root/.npm
+    ports:
+      - "5173:5173"
+      - "1420:1420"
+    environment:
+      - CARGO_HOME=/root/.cargo
+      - RUSTUP_HOME=/root/.rustup
+      - npm_config_cache=/root/.npm
+    stdin_open: true
+    tty: true
+
+  tauri-build:
+    build:
+      context: .
+    working_dir: /workspace/tauri-app
+    entrypoint: ["npm", "run", "tauri", "build"]
+    volumes:
+      - ./tauri-app:/workspace/tauri-app
+      - cargo-cache:/root/.cargo
+      - rustup-cache:/root/.rustup
+      - npm-cache:/root/.npm
+    environment:
+      - CARGO_HOME=/root/.cargo
+      - RUSTUP_HOME=/root/.rustup
+      - npm_config_cache=/root/.npm
+    profiles:
+      - build
+
+volumes:
+  cargo-cache:
+  rustup-cache:
+  npm-cache:
