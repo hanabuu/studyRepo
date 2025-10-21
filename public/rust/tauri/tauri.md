@@ -65,6 +65,16 @@ rust:1.69-slim-bullseyeだとxeyesが入れられないかもと言われ、slim
 * dockerfileの別アプローチでnodeコンテナ上にtauriを入れる方法
 * docker-composeはtauri-appがある前提となっているため、適宜volumeにマウントできるように配置しておくこと
 
+## exe作成
+
+``` text
+npm run tauri build はデフォルトで Windows 向けに NSIS インストーラー（.exe）を作ります。インストーラーなしで実行可能ファイルだけ欲しいなら、Tauri の bundler を exe に絞れば OK です。
+
+生成物は src-tauri/target/x86_64-pc-windows-gnu/release/bundle/exe/ 配下に配置され、インストール不要でそのまま起動できます。
+
+さらに軽い “そのまま cargo の成果物” が欲しい場合は、バンドル処理を通さずに cargo build --release --target x86_64-pc-windows-gnu を実行すれば src-tauri/target/x86_64-pc-windows-gnu/release/<appname>.exe が生成されます。必要に応じてお選びください。
+```
+
 ## 参考
 
 - [Docker で Tauri の環境を構築する(yew,WSLg)](https://qiita.com/Ritz/items/883337f711a48663cf64)
