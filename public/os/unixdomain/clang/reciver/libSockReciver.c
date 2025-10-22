@@ -5,13 +5,13 @@
  *      Author: hanabusa
  */
 
-#include "testUdpRecvC.h"
+#include "testSockReciver.h"
 
-pthread_t recvDgramProcessThreadId;
+pthread_t recvSockProcessThreadId;
 int sock;
 bool shutdownflg;
 
-static void *recvDgramProcess(void *arg);
+static void *recvSockProcess(void *arg);
 static int create_recv_socket(const char* sock_path, int *sock, struct sockaddr_un *recv_sun);
 static int recv_socket(int sock);
 
@@ -36,7 +36,7 @@ int startRecvThread(){
 	int ret = 0;
 	shutdownflg = false;
 
-	ret = pthread_create(&recvDgramProcessThreadId, NULL, recvDgramProcess, NULL);
+	ret = pthread_create(&recvSockProcessThreadId, NULL, recvSockProcess, NULL);
 	if( ret != 0 ){
 		printf("受信スレッド起動失敗\n");
 		return -1;
@@ -57,56 +57,11 @@ void endRecvThread(){
 
 	shutdownflg = true;
 
-	ret = pthread_join(recvDgramProcessThreadId, NULL);
+	ret = pthread_join(recvSockProcessThreadId, NULL);
 	if(ret != 0){
 		printf("受信スレッド停止失敗\n");
 	}
 }
-
-//==========================================================
-/**
- * @brief		#～# UDP電文送信
- * @param		address [in] IPアドレス
- * @param		port [in] ポート番号
- * @param		broadcast [in] ブロードキャスト用か？（true:ブロードキャスト用、false:ユニキャスト用、省略時:false）
- * @param		data [in] 送信データ
- * @param		len [in] 送信長
- * @return		処理結果
- * @retval		0	正常
- * @retval		-1	ソケットオープン失敗
- * @retval		-2	ソケット設定失敗
- * @retval		-3	送信失敗
- * @date		2025/04/16
- * @author		ALSOK 英
- */
-//==========================================================
-int sendDgram(const char* sock_path, bool broadcast, const uint8_t* data, int len){
-	int ret = 0;
-	int opt = -1;
-	int sendedLen = 0;
-  	struct sockaddr_un sun;
-  	memset(&sun, 0, sizeof(sun));
-
-	socklen_t socklen = sizeof(sun);
-
-	sun.sun_family = AF_LOCAL;               // UNIXドメイン
-	strcpy(sun.sun_path, sock_path);  // UNIXドメインソケットのパスを指定
-
-	ret = connect(sock, (const struct sockaddr *)&sun, sizeof(sun));
-	if(ret < 0){
-		printf("ソケット接続失敗 %d\n", ret);
-		return -1;
-	}
-
-	sendedLen = sendto(sock, data, len, 0, (struct sockaddr *)&sun, sizeof(sun));
-	if(sendedLen != len){
-		printf("送信エラー 送信サイズ:%d\n", sendedLen);
-		return -3;
-	}
-
-	return 0;
-}
-
 
 /* スタティック関数 */
 
@@ -127,11 +82,11 @@ static int create_recv_socket(const char* sock_path, int *sock, struct sockaddr_
 	int ret = 0;
 
 	// ソケットアドレス構造体←今回はここがUNIXドメイン用のやつ
-  	struct sockaddr_un sun; //, sun_client;
-  	memset(&sun, 0, sizeof(sun));
-  	// memset(&sun_client, 0, sizeof(sun_client));
+  struct sockaddr_un sun; //, sun_client;
+  memset(&sun, 0, sizeof(sun));
+  // memset(&sun_client, 0, sizeof(sun_client));
 
-	socklen_t socklen = sizeof(sun);
+	// socklen_t socklen = sizeof(sun);
 
 	remove(sock_path);  // socket作る前に前回のファイルを消しておく
 
@@ -226,7 +181,7 @@ static int recv_socket(int sock){
  * @author		ALSOK 英
  */
 //==========================================================
-static void *recvDgramProcess(void *arg){
+static void *recvSockProcess(void *arg){
 
 	int ret = 0;
 	struct sockaddr_un recv_sun;

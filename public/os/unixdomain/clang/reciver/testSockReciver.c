@@ -1,4 +1,4 @@
-#include "testUdpRecvC.h"
+#include "testSockReciver.h"
 
 int main(void) {
 	int ret = 0;

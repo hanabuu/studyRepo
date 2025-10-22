@@ -5,14 +5,14 @@ LDFLAGS = -pthread
 # Source directories
 SRCDIR = .
  
-TARGET = unixdomainclient
+TARGET = unixdomainSender
 # Main source files
-MAIN_SRCS = libUdp.c testUdpRecv.c
+MAIN_SRCS = libSockSender.c testSockSender.c
 
 SRCS = $(MAIN_SRCS)
 
-OBJS = libUdp.o
-OBJS += testUdpRecv.o
+OBJS = libSockSender.o
+OBJS += testSockSender.o
 
  # Build rules
 all: $(TARGET)

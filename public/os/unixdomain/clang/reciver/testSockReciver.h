@@ -14,12 +14,11 @@
 #include <string.h>
 
 #define BUFFER_MAX 1502                          //受信バッファサイズ
-#define UNIX_SOCKET_PATH "/work/unixdomain/test.unixsocket"
+#define UNIX_SOCKET_PATH "/work/sample/unixdomain/test.unixsocket"
 
 #define TIMEOUT (1000)                          //受信タイムアウト
 
 extern int startRecvThread();
 extern void endRecvThread();
-extern int sendDgram(const char* sock_path, const uint8_t* data, int len);
 
 #endif // TEST_UDP_RECV_C_H
