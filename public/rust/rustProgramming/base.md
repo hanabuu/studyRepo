@@ -2,6 +2,8 @@
 
 ## 変数宣言
 
+* 命名規則：スネークケース(例：some_variable)
+
 * 可変(mutable)
 
 ``` rust
@@ -14,7 +16,7 @@ let mut hoge = "42"
 let hoge = "42"
 ```
 
-* 型定義
+* 型定義(型注釈)
 
 ``` rust
 let hoge: i32 = 42
@@ -327,3 +329,112 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 コンパイルでは何もエラーが出なかったものの、プログラムは実行時エラーに陥り、 正常終了しませんでした。要素に添え字アクセスを試みると、言語は、 指定されたその添え字が配列長よりも小さいかを確認してくれます。添え字が配列長よりも大きければ、言語はパニックします。 パニックとは、プログラムがエラーで終了したことを表すRust用語です。
 
 これは、実際に稼働しているRustの安全機構の最初の例になります。低レベル言語の多くでは、 この種のチェックは行われないため、間違った添え字を与えると、無効なメモリにアクセスできてしまいます。 Rustでは、メモリアクセスを許可し、処理を継続する代わりに即座にプログラムを終了することで、 この種のエラーからプログラマを保護しています。
+
+## 関数について
+
+- エントリポイント(プログラム実行時に最初に走る関数のこと)：main
+- 命名規則：スネークケース(例： some_variable)
+- 関数の位置：どこでも大丈夫(C言語みたいに下にいるから参照できないとかない)
+- 戻り値については関数本体のブロックの最後の式（;(セミコロン)がない）と同義。ここは[文と式](#文と式)参照。
+  - 関数途中でreturnを使うことも可能。
+- 記述例
+
+    ``` rust
+    //fn 関数(引数１: 型, 引数２: 型...) -> 戻り値の型 {
+        // 処理
+    //}
+    fn plus(x: i32, y: i32) -> i32 {
+        x + y
+    }
+    ```
+- 興味深い例
+  - 関数fiveは問題ない関数。5を返すから5しかない。
+
+    ``` rust
+    fn five() -> i32 {
+        5
+    }
+
+    fn main() {
+        let x = five();
+
+        println!("The value of x is: {}", x);
+    }
+    ```
+
+### 文と式
+
+- Rustは文と式を明確に区別する
+  - 文(statement)：なんらかの動作をして値を返さない命令。
+    - 終端にセミコロンがつく
+  - 式(expression)：結果値に評価される
+    - 終端にセミコロンはつかない
+- 基本構文は以下(自分なりの解釈)
+  - ```let 値 = 式;``` 全体で文
+  - ```let y = i + 1;``` i+1はyという結果値を束縛する式であり、全体では何も値を返さない命令文
+- 以下の記述はエラーになる
+    ``` rust
+    fn main() {
+        let x = (let y = 6);
+    }
+    ```
+    - この```let y = 6```という文は値を返さないので、xに束縛するものがない。
+    - CやRubyなどの言語とは異なる動作で、CやRubyでは代入は代入値を返します。
+      - これらの言語では```x = y = 6```と書いて、xもyも値6になるようにできるが、Rustにおいてはできない。
+    - エラー内容は以下
+
+    ``` text
+    $ cargo run
+    Compiling functions v0.1.0 (file:///projects/functions)
+    error: expected expression, found statement (`let`)
+    (エラー: 式を予期しましたが、文が見つかりました (`let`))
+    --> src/main.rs:2:14
+    |
+    2 |     let x = (let y = 6);
+    |              ^^^^^^^^^
+    |
+    = note: variable declaration using `let` is a statement
+        (注釈: `let`を使う変数宣言は、文です)
+
+    error[E0658]: `let` expressions in this position are experimental
+    --> src/main.rs:2:14
+    |
+    2 |     let x = (let y = 6);
+    |              ^^^^^^^^^
+    |
+    = note: see issue #53667 <https://github.com/rust-lang/rust/issues/53667> for more information
+    = help: you can write `matches!(<expr>, <pattern>)` instead of `let <pattern> = <expr>`
+
+    warning: unnecessary parentheses around assigned value
+    --> src/main.rs:2:13
+    |
+    2 |     let x = (let y = 6);
+    |             ^         ^
+    |
+    = note: `#[warn(unused_parens)]` on by default
+    help: remove these parentheses
+    |
+    2 -     let x = (let y = 6);
+    2 +     let x = let y = 6;
+    | 
+
+    For more information about this error, try `rustc --explain E0658`.
+    warning: `functions` (bin "functions") generated 1 warning
+    error: could not compile `functions` due to 2 previous errors; 1 warning emitted
+    ```
+
+    - 関数呼び出しも式、マクロ呼び出しも式、 新しいスコープを作る際に使用するブロック({})も式
+    - 以下はブロックの例。
+        ``` rust
+        fn main() {
+            let y = {
+                let x = 3;
+                x + 1
+            };
+
+            println!("The value of y is: {}", y);
+        }
+        ```
+    - ```x+1```は終端にセミコロンがないので、戻り値の式である。
+    - この時```x+1```にセミコロンをつけた場合、文となってしまいなにも戻さないこととなるのでコンパイルエラー
+
