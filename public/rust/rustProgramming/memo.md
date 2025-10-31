@@ -18,6 +18,38 @@ CMD ["/bin/sh"]
 # sudo docker container ls
 ```
 
+- ubuntuイメージの場合
+
+``` Dockerfile
+# 公式のUbuntuイメージをベースにする
+FROM ubuntu:22.04
+
+# 開発に必要なツールをインストールする
+RUN apt-get update && \
+    apt-get install -y curl build-essential && \
+    rm -rf /var/lib/apt/lists/*
+
+# Rustをインストールする
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
+
+# 環境変数を設定する
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+# 開発用のディレクトリを作成する
+WORKDIR /app
+
+# 開発用のカレントディレクトリにソースコードをコピーする
+# COPY . /app
+
+# コンテナ起動時にRustのビルドを実行する（必要に応じて変更）
+CMD ["/bin/bash"]
+
+# sudo docker build -t rust_study:22.04 .
+# sudo docker run --rm -it  -v "$(pwd)/src:/app" rust_study:22.04
+# sudo docker container exec -it <コンテナ名> bash
+# sudo docker container ls
+```
+
 ## hello world
 
 * main.rs
@@ -48,6 +80,7 @@ fn main() {
 ``` shell
 $ cargo --version
 ```
+
 多分DockerのFromのバージョンと一致してるものと思われる
 
 ### Cargoでプロジェクト作成
@@ -93,10 +126,10 @@ edition = "2021"
 [dependencies]
 ```
 
-* [package]
+- [package]
 セクションヘッダー
 
-* [dependencies]
+- [dependencies]
 パッケージを記載するところ。Rustではパッケージのことを**クレート**と呼ぶらしい。
 以下のような記述をすることでクレートを追加する
 
@@ -108,6 +141,7 @@ rand = "0.8.3"
 最初buildしてしまえば、Cargo.lockファイルで今のバージョンを記憶してダウンロードはされない。
 
 ##### クレートのアップデートについて
+
 アップデートが必要なら以下のコマンドでアップデートまでされる
 
 ``` shell
@@ -160,8 +194,6 @@ $ cargo check
 ```
 
 ビルドよりも高速
-
-
 
 ## 参考
 
