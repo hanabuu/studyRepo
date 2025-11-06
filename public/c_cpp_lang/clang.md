@@ -59,3 +59,14 @@ srand()：seed設定
 ## gdb
 
 [はじめてのgdb](https://qiita.com/arene-calix/items/a08363db88f21c81d351)
+
+## メモリ管理
+
+### mallocとcallocの違い
+
+- malloc
+  - 確保された領域は初期化されてない
+- calloc
+  - 確保された領域は全ビットが自動的に0で埋められる
+
+[C言語　mallocとcallocの違い](https://qiita.com/keitean/items/a8e6931173906b02abc0)

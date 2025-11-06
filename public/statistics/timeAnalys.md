@@ -4,6 +4,7 @@
 
 [Python で時系列予測に使える機械学習モデルの実行例まとめ](https://qiita.com/satshout/items/1f9c2add8a717d7d8d0b)
 [Prophetの使い方メモ](https://qiita.com/tchih11/items/42fc0d52a1486ba64b5d)
+[Facebookが開発した時系列予測モデルProphetで可能な4つのタイプの分析](https://qiita.com/IkuyaM/items/28dc0bb8483f82bc7023)
 
 ### TensorFlow
 
