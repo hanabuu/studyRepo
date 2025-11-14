@@ -75,7 +75,34 @@ fn main() {
 > ./main
 ```
 
+## プレリュード(標準で搭載されているライブラリ)
+
+Rustではデフォルトで標準ライブラリが利用可能である。
+標準のものをprelude(プレリュード)と呼ぶ。入ってるものを以下に示す。
+※標準に入らないものはuseでスコープに入れる必要がある.
+
+``` text
+std::marker::{Copy, Send, Sized, Sync, Unpin}
+std::ops::{Drop, Fn, FnMut, FnOnce}
+std::mem::drop
+std::boxed::Box
+std::borrow::ToOwned
+std::clone::Clone
+std::cmp::{PartialEq, PartialOrd, Eq, Ord}
+std::convert::{AsRef, AsMut, Into, From}
+std::iter::{Iterator, Extend, IntoIterator, DoubleEndedIterator, ExactSizeIterator}
+std::option::Option::{self, Some, None}
+std::result::Result::{self, Ok, Err}
+std::vec::Vec
+std::convert::{TryFrom, TryInto}
+std::iter::FromIterator
+```
+
+[RustのPrelude(プレリュード)って何?](https://qiita.com/naka_kyon/items/7840b19d8f0cdd667699)
+
 ## パッケージマネージャーCargo
+
+ライブラリとは別でパッケージで機能を提供されるものを使う場合
 
 ``` shell
 $ cargo --version
@@ -139,6 +166,8 @@ rand = "0.8.3"
 
 改めてbuildすれば、勝手にダウンロードして使えるようになる。ネットワークが脆弱だからなのか結構長い。。
 最初buildしてしまえば、Cargo.lockファイルで今のバージョンを記憶してダウンロードはされない。
+
+editionは現状'2015','2018','2021'のどれか
 
 ##### クレートのアップデートについて
 

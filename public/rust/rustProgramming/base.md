@@ -438,3 +438,56 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
     - ```x+1```は終端にセミコロンがないので、戻り値の式である。
     - この時```x+1```にセミコロンをつけた場合、文となってしまいなにも戻さないこととなるのでコンパイルエラー
 
+## エラーハンドリング構文
+
+- copilotに聞いてみた
+
+``` text
+rustの構文として、以下のように変数に?があるのは、nullかどうかをチェックしているのでしょうか？
+let record = result?;
+```
+
+回答
+
+``` text
+いいえ、? は null チェックではなく、エラーハンドリング演算子です。
+
+簡単な説明：
+
+result? は「result が Err なら関数を抜けて呼び出し元にそのエラーを返す、Ok なら中身を取り出して続行」という意味。
+null チェックではなく、Result<T, E> 型のエラー処理用です。
+コード例で説明：
+let record = result?;  // result が Err なら関数終了＆エラー返却、Ok なら record に値を代入
+
+上記は以下と同等：
+let record = match result {
+    Ok(val) => val,
+    Err(err) => return Err(err),
+};
+
+あなたのコード main.rs の場合：
+
+rdr.records() は Iterator<Item = Result<StringRecord, csv::Error>> を返す。
+for result in rdr.records() で result は Result 型。
+let record = result?; でエラーなら即座に example() 関数から出てエラーを返す、成功なら record に StringRecord が入る。
+
+? は Rust のエラーハンドリングの便利な記法で、ファイルが無い場合や CSV 形式エラーが出ると自動でそこで関数終了します。
+```
+
+使用したコード(CSV読み込み)
+
+``` rust
+fn example() -> Result<(), Box<dyn Error>> {
+    // Build the CSV reader and iterate over each record.
+    let file = File::open("Organization_v3.csv")?;
+    let mut rdr = csv::Reader::from_reader(file);
+    for result in rdr.records() {
+        // The iterator yields Result<StringRecord, Error>, so we check the
+        // error here.
+        let record = result?;
+        let title = &record[0];
+        println!("{}", title);
+    }
+    Ok(())
+}
+```
