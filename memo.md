@@ -93,39 +93,6 @@ year	month	day	between
 > git config user.email '～'
 ```
 
-## Linuxコマンド
-
-### find
-
-- 再帰的に検索できる
-``` text
-> find <検索対象ディレクトリ> -name "<file名>"
-> find ./ -name "test.txt"
-```
-
-### locate
-
-- システムとして全体を検索可能
-``` text
-> updatedb  :Linux内のファイル配置をアップデートする
-> locate test.txt
-```
-
-### ln
-
-リンクを張るコマンド
-
-``` text
-> ln [オプション] <リンク元ファイル名> <リンク名>
-```
-
-- ハードリンク
-  - ハードリンクとは、1つのファイルの実態に複数の名前を付ける機能。ハードリンクで追加されたファイル名は、どちらが本物名前で仮の名前などの区別が存在しない。
-- シンボリックリンク
-  - シンボリックリンクとは、リンク先のパス名が書かれた小さな特殊ファイルです。ハードリンクとは違い、リンク先がファイルの実体です。
-
-[lnコマンドめっちゃ便利。](https://qiita.com/mitsumizo/items/3c266699d9ca7a712108)
-
 ## その他のメモ
 
 [PowerShell のスクリプトが実行できない場合の対処方法](https://warawaforce.hatenablog.com/entry/2020/07/29/231649)

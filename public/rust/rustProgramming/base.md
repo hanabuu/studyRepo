@@ -347,6 +347,7 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
         x + y
     }
     ```
+
 - 興味深い例
   - 関数fiveは問題ない関数。5を返すから5しかない。
 
@@ -373,15 +374,17 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
   - ```let 値 = 式;``` 全体で文
   - ```let y = i + 1;``` i+1はyという結果値を束縛する式であり、全体では何も値を返さない命令文
 - 以下の記述はエラーになる
+
     ``` rust
     fn main() {
         let x = (let y = 6);
     }
     ```
-    - この```let y = 6```という文は値を返さないので、xに束縛するものがない。
-    - CやRubyなどの言語とは異なる動作で、CやRubyでは代入は代入値を返します。
-      - これらの言語では```x = y = 6```と書いて、xもyも値6になるようにできるが、Rustにおいてはできない。
-    - エラー内容は以下
+
+  - この```let y = 6```という文は値を返さないので、xに束縛するものがない。
+  - CやRubyなどの言語とは異なる動作で、CやRubyでは代入は代入値を返します。
+    - これらの言語では```x = y = 6```と書いて、xもyも値6になるようにできるが、Rustにおいてはできない。
+  - エラー内容は以下
 
     ``` text
     $ cargo run
@@ -440,6 +443,8 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 
 ## エラーハンドリング構文
 
+### クエスチョンマーク(?)
+
 - copilotに聞いてみた
 
 ``` text
@@ -491,3 +496,35 @@ fn example() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 ```
+
+### unwrap()
+
+- unwrapというのでもエラーハンドリングが可能そう
+- 以下の関数で```read_dir()```の戻り値によって処理を変えられるようです。
+
+``` rust
+fn main() {
+    let files = read_dir("./src").unwrap();
+    for file in files {
+        println!("{}", file.display());
+    }
+}
+```
+
+- copilotさんだと以下の回答
+
+``` text
+`read_dir("./src")` の戻り値は `Result` で、`unwrap()` はそれが `Ok` なら中身（`Vec<PathBuf>`）を取り出し、`Err` なら即座に `panic!` を起こして異常終了させます。
+```
+
+## エラー型
+
+- よく関数の戻りで以下の記載を見かける
+
+``` rust
+Result<<,,,>, Box<dyn Error>>
+```
+
+- <,,,>内は正常に動作した際の戻り値の型
+- Box<dyn Error>がErrorトレイとを実装する任意の型をヒープ上に格納した「スマートポインタ」であるとのこと。(copilot)
+- 上記の記載によって、具体的なエラー型を抽象化し、同一の戻り値（Result<…, Box<dyn Error>>）で様々な失敗理由を扱えるようにしています。
