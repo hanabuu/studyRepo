@@ -203,3 +203,243 @@ fn main() {
 *   **階層化されたモジュール** がすでにある
 
 もし既存のプロジェクトがあれば、**ディレクトリツリー**（`src`配下）と **現状の参照エラー** を教えていただければ、**正しい `mod` / `use` パス**に直してサンプルをお渡しします。
+
+## フォルダで分割したときの参照方法
+
+``` text
+以下のような構成の場合の定数の読み込みはどうすればいいですか？
+myapp/
+　├─ main
+　　　└─ main.rs    ←ここからconstants.rsの定数を読みたい
+　└─ constants
+　　　└─ constants.rs　←定数定義が定義されている
+```
+
+良い質問です。Rustの**モジュール探索規則**に沿って配置すれば、`main.rs` から `constants.rs` の定数を参照できます。  
+ご提示の構成は少しだけ標準から外れているので、**正しい配置パターン**ごとにやり方を示します。
+
+> あなたの構成（概念図）
+>
+>     myapp/
+>     ├─ main
+>     │  └─ main.rs        ← ここから constants.rs を使いたい
+>     └─ constants
+>        └─ constants.rs   ← 定数定義
+>
+> ※ 実際には `src/` 配下で管理する必要があります。
+
+***
+
+## 推奨構成①：最もシンプル（`src/main.rs` と `src/constants.rs`）
+
+### ディレクトリ構成
+
+    myapp/
+    ├─ Cargo.toml
+    └─ src/
+       ├─ main.rs
+       └─ constants.rs
+
+### `src/constants.rs`（定数定義）
+
+```rust
+// src/constants.rs
+pub const APP_NAME: &str = "MyApp";
+pub const GREETING: &str = "こんにちは";
+```
+
+### `src/main.rs`（参照側）
+
+```rust
+// src/main.rs
+mod constants; // 同じディレクトリの constants.rs をモジュールとして登録
+
+fn main() {
+    println!("{}: {}", constants::APP_NAME, constants::GREETING);
+}
+```
+
+*   ポイント：`mod constants;` は **ファイルをモジュールに組み込む宣言**。
+*   参照は `constants::APP_NAME` のように **モジュール名::項目**。
+
+***
+
+## 推奨構成②：ディレクトリモジュール（`src/constants/mod.rs`）
+
+「`constants` をフォルダとしてまとめたい」ならこちら。
+
+### ディレクトリ構成
+
+    myapp/
+    ├─ Cargo.toml
+    └─ src/
+       ├─ main.rs
+       └─ constants/
+          └─ mod.rs
+
+### `src/constants/mod.rs`
+
+```rust
+// src/constants/mod.rs
+pub const APP_NAME: &str = "MyApp";
+pub const GREETING: &str = "こんにちは";
+```
+
+### `src/main.rs`
+
+```rust
+// src/main.rs
+mod constants; // フォルダ constants/ の mod.rs を読み込む
+
+fn main() {
+    println!("{}: {}", constants::APP_NAME, constants::GREETING);
+}
+```
+
+*   フォルダをモジュールにする場合、**入口ファイル名は `mod.rs`** が基本です。
+
+***
+
+## 構成③：さらに分割（`constants/constants.rs` をぶら下げたい）
+
+フォルダ `constants/` の中にさらに `constants.rs` を置くなら、**`mod.rs` でサブモジュール宣言**をします。
+
+### ディレクトリ構成
+
+    myapp/
+    ├─ Cargo.toml
+    └─ src/
+       ├─ main.rs
+       └─ constants/
+          ├─ mod.rs
+          └─ constants.rs
+
+### `src/constants/constants.rs`（定数定義）
+
+```rust
+// src/constants/constants.rs
+pub const APP_NAME: &str = "MyApp";
+pub const GREETING: &str = "こんにちは";
+```
+
+### `src/constants/mod.rs`（サブモジュールの公開）
+
+```rust
+// src/constants/mod.rs
+pub mod constants;
+```
+
+### `src/main.rs`（参照側）
+
+```rust
+// src/main.rs
+mod constants;
+
+fn main() {
+    println!("{}: {}", constants::constants::APP_NAME, constants::constants::GREETING);
+    // もしくは再エクスポートを使う（下記Tips参照）
+}
+```
+
+> 階層が深くなると参照パスが長くなるので、\*\*再エクスポート（`pub use`）\*\*で短くできます（後述）。
+
+***
+
+## 構成④：複数バイナリを使う場合（`src/bin/main.rs`）
+
+もし「`main/` ディレクトリ配下に `main.rs`」を置きたい目的が **複数の実行ファイル（バイナリ）を作るため**なら、Rustの慣例では **`src/bin/`** を使います。
+
+### ディレクトリ構成
+
+    myapp/
+    ├─ Cargo.toml
+    └─ src/
+       ├─ bin/
+       │  └─ main.rs            ← 実行ファイル
+       └─ constants/
+          └─ mod.rs             ← 共通モジュール
+
+### `src/constants/mod.rs`
+
+```rust
+pub const APP_NAME: &str = "MyApp";
+pub const GREETING: &str = "こんにちは";
+```
+
+### `src/bin/main.rs`
+
+```rust
+// バイナリ側からは crate ルート基準で参照する
+use myapp::constants; // ← Cargo.toml の package.name が myapp の場合
+
+fn main() {
+    println!("{}: {}", constants::APP_NAME, constants::GREETING);
+}
+```
+
+> この場合、**`src/lib.rs` を置いてモジュールを公開**すると参照が楽になります。  
+> 例：
+
+*   `src/lib.rs`
+    ```rust
+    pub mod constants;
+    ```
+*   `src/bin/main.rs`
+    ```rust
+    use myapp::constants;
+
+    fn main() {
+        println!("{}: {}", constants::APP_NAME, constants::GREETING);
+    }
+    ```
+
+***
+
+## 再エクスポート（参照を短くする小技）
+
+モジュール階層が深いなら `pub use` を使ってトップから見えるようにできます。
+
+*   `src/lib.rs`
+    ```rust
+    pub mod constants;
+    pub use constants::APP_NAME;      // トップへ再エクスポート
+    pub use constants::GREETING;
+    ```
+*   `src/bin/main.rs` や `src/main.rs`
+    ```rust
+    use myapp::APP_NAME;
+    use myapp::GREETING;
+
+    fn main() {
+        println!("{}: {}", APP_NAME, GREETING);
+    }
+    ```
+
+***
+
+## よくあるつまずき
+
+*   **`cannot find module 'constants'`**  
+    → `mod constants;` を置いたファイルと **同じ `src/` 階層に `constants.rs` または `constants/mod.rs` があるか**確認。
+
+*   **`unresolved import` / パスが通らない**  
+    → **クレート名（`Cargo.toml` の `[package] name`）** を正しく使う。バイナリからライブラリを参照するときは `use myapp::constants;` のように **crate ルート**基準で。
+
+*   **`constants.rs` をフォルダ内に置きたい**  
+    → **フォルダの入口は `mod.rs`**。`mod.rs` 内で `pub mod constants;` を宣言し、`constants.rs` をサブモジュールにする。
+
+***
+
+## まとめ（あなたの構成に対応させるなら）
+
+*   `main.rs` を **`src/` 直下**に置けるなら → **構成①**が最も簡単。
+*   `constants` をフォルダにしたいなら → **構成②**。
+*   `constants/constants.rs` とさらに分けたいなら → **構成③**（`mod.rs`＋`pub mod constants;`）。
+*   `main/` ディレクトリに複数バイナリを置く意図なら → **構成④**（`src/bin/` を使い、`src/lib.rs` で公開）。
+
+***
+
+### 補足質問
+
+今の実プロジェクトは `src/` 配下がどうなっていますか？  
+`ls -R src`（ディレクトリツリー）を貼っていただければ、**最短で動く `mod`/`use` の書き方**を具体的に示します。
