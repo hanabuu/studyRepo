@@ -49,6 +49,7 @@
   # 同時に開けるファイル数を10に制限
   $ ulimit -n 10
   ```
+
   これらの制限を超えるとエラーが発生する、例えば```Too many open files```や```file size limit exceeded```など。
 
 ### ソフトリミットとハードリミット
@@ -86,6 +87,7 @@ username hard fsize 10000
 - [システムアドレスの制限](https://qiita.com/hot_study_man/items/24e2bb953d4dca539c75)
 
 ## teeコマンド
+
 - teeコマンドは、Linuxで標準出力をそのまま画面に表示しつつ、同時にファイルにも出力する便利なコマンドです。これにより、コマンドの実行結果を確認しながら記録することが可能です。
 
 ### 基本的な使い方
@@ -174,3 +176,47 @@ $ls /var | tee output.txt
 
 - [Linuxコマンド tee](https://www.ibm.com/docs/ja/aix/7.1.0?topic=t-tee-command)
 - [Qiita](https://qiita.com/wnoguchi/items/2fc3ec11043d139dc6bb)
+
+## vmstat
+
+``` text
+procs
+  r:実行待ち状態のプロセス数
+  b:割り込み不可能なスリープ状態にあるプロセス数
+memory
+  swpd:現在の仮想メモリの量
+  free:現在開いている実メモリの量
+  buff：バッファに使われている実メモリの量
+  cache:キャッシュとして使われている実メモリの量
+  inact:アクティブになっていない実メモリの量
+  active:アクティブな実メモリ
+swap
+  si:ディスクからスワップインしているメモリ量
+  so:ディスクにスワップしてるメモリ量
+io
+  bi:ブロックデバイスから受け取ったブロック数(KB/s)
+  bo:ブロックデバイスに送られたブロック数(kb/s)
+system
+  in:1秒当たりの割り込み回数
+  cs:1秒当たりのコンテキストスイッチ回数
+CPU
+  us:実行に使用したユーザー時間
+  sy:カーネルコードの実行に使用したシステム時間
+  id:アイドル時間
+  wa:IOの待ち時間
+  st:不明
+```
+
+## useradd
+
+``` text
+useradd -g [グループ名] [ユーザー名]
+passwd [ユーザー名]
+※ここでパスワードを打つ
+```
+
+## DNS系
+
+``` text
+dig MX [ドメイン]
+```
