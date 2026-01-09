@@ -528,3 +528,49 @@ Result<<,,,>, Box<dyn Error>>
 - <,,,>内は正常に動作した際の戻り値の型
 - Box<dyn Error>がErrorトレイとを実装する任意の型をヒープ上に格納した「スマートポインタ」であるとのこと。(copilot)
 - 上記の記載によって、具体的なエラー型を抽象化し、同一の戻り値（Result<…, Box<dyn Error>>）で様々な失敗理由を扱えるようにしています。
+
+## 無名関数（クロージャ）
+
+例
+
+``` rust
+let add_one_v2 = |x: u32| -> u32 { 
+    x + 1 
+};
+
+let add_one_v3 = |x| { 
+    x + 1 
+};
+
+let add_one_v4 = |x| x + 1  ;
+```
+
+上記は以下と同等
+
+``` rust
+fn add_one_v1 (x: u32) -> u32 { 
+    x + 1 
+}
+```
+
+## if let
+
+matchの簡略系でmatchしなければ後続の{}内を実行する
+
+``` rust
+if let A = B {
+    // matchしなければ実行する
+}
+```
+
+
+例)
+
+``` rust
+    if let Err(error) = run() {
+        eprintln!("アプリケーションエラー: {error}");
+        process::exit(1);
+    }
+```
+
+この場合「run()がErr(error)を返したときのみ{}内を実行。Okの場合は何もせずに先に進む」

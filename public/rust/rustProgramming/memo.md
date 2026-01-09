@@ -100,6 +100,12 @@ std::iter::FromIterator
 
 [RustのPrelude(プレリュード)って何?](https://qiita.com/naka_kyon/items/7840b19d8f0cdd667699)
 
+### 個別
+
+#### std::fmt
+
+Rust の標準ライブラリにあるフォーマット機能のモジュールで、Format トレイト群や Formatter など、println! や format! のような文字列整形を支える仕組みを提供する。
+
 ## パッケージマネージャーCargo
 
 ライブラリとは別でパッケージで機能を提供されるものを使う場合

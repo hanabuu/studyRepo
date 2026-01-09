@@ -42,3 +42,42 @@ SRCS := $(filter-out test1.cpp test2.cpp,$(SRCS))
 ```
 
 - SRCSの中からtest1.cpp,test2.cppを取り除く
+
+## makefileオプション一覧
+
+```
+-B, --always-make
+# すべてのターゲットを再作成します。
+-C dir, --directory=dir
+# 指定したディレクトリに移動してから Makefile を実行します。
+-d, --debug
+# デバッグ情報を出力します。
+-e, --environment-overrides
+# 環境変数を優先して使用します。
+-f file, --file=file
+# 指定したファイルを Makefile として使用します。
+-i, --ignore-errors
+# レシピのエラーを無視して処理を続行します。
+-j [jobs], --jobs[=jobs]
+# 同時に実行するジョブの数を指定します。
+-k, --keep-going
+# エラーが発生しても可能な限り処理を続行します。
+-n, --just-print, --dry-run, --recon
+# 実行されるコマンドを表示しますが、実際には実行しません。
+-p, --print-data-base
+# Makefile のデータベースを出力します。
+-q, --question
+# ターゲットが最新かどうかを確認します。
+-r, --no-builtin-rules
+# 組み込みの暗黙的なルールを無効にします。
+-s, --silent, --quiet
+# 実行中のコマンドを表示しません。
+-t, --touch
+# ターゲットを最新状態としてマークしますが、実際には変更しません。
+-v, --version
+# `make` のバージョン情報を表示します。
+-w, --print-directory
+# 現在の作業ディレクトリを表示します。
+--warn-undefined-variables
+# 未定義の変数が使用された場合に警告を表示します。
+```
