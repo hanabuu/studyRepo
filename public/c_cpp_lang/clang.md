@@ -70,3 +70,5 @@ srand()：seed設定
   - 確保された領域は全ビットが自動的に0で埋められる
 
 [C言語　mallocとcallocの違い](https://qiita.com/keitean/items/a8e6931173906b02abc0)
+
+## テスト
