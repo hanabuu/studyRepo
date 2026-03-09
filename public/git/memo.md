@@ -118,8 +118,8 @@ $ git checkout -b <ブランチ名> origin/<ブランチ名>
 https://itsakura.com/tool-github-git-ssh
 
 ``` text
-$ git config --global user.name hanabuu
-$ git config --global user.email hanabusa.tatsuo0119@gmail.com
+$ git config --global user.name <username>
+$ git config --global user.email <useremail>
 
 $ git clone ～.git
 ```
@@ -237,7 +237,7 @@ git checkout .                  //全消し
   - プロジェクトを「公開」にすることで解決できたので、newは未使用とする
 - プロジェクトを「公開」にしてもpushがなぜかpermissionで蹴られる
   - 上でユーザーを新しく作ったことで、Windowsの資格情報に２つのユーザーの情報が入ってしまったことが原因
-  - とりあえず、git:10.116.166.192の資格情報を消して、再度pushをしてみると、ユーザー情報を再度入力することができ、ユーザー名とトークンを入れると正常に戻った。
+  - とりあえず、git:<ipaddress>の資格情報を消して、再度pushをしてみると、ユーザー情報を再度入力することができ、ユーザー名とトークンを入れると正常に戻った。
 
 - 勉強になったこと
   - configの確認
@@ -326,6 +326,5 @@ ssh -T git@github-work
 
 [参考](https://qiita.com/mizutoki79/items/9b709bd50505d2768352)
 [【git】【Windows】認証情報を設定しよう](https://zenn.dev/kuuki/articles/git-config-auth-windows)
-...事務系の「内政保守関連->会社Git->gitの参考URL.txt」にほかのURL入れてる。
 
 [git pull完全ガイド：実践的な使い方とベストプラクティス【2025年最新版】](https://blue3orz.com/git-pull-complete-guide-2025/)
