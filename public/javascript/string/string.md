@@ -15,9 +15,6 @@ let str: string = "あいうえお\nかきくけこ"
 let ret: string[] = string.split(/\n/);  // SJISなら/\r\n/で分割する
 console.log(ret);  // => ["あいうえお", "かきくけこ"]
 ```
-
-
-
 ## 切り出し
 substring
 ``` js
@@ -64,6 +61,24 @@ export const substr_b = (str: string, begin: number, byteNum: number): string =>
 
 * trim()
 前後の空白を削除
+
+## パディング(padStart)
+
+`padStart(targetLength, padString)` は、文字列の先頭を指定した文字で埋めて、指定した長さにする関数です。
+
+**引数:**
+
+- `targetLength` ： 目標の文字列長
+- `padString` ： 埋めに使う文字（省略時はスペース）
+
+**例:**
+
+```js
+'5'.padStart(2, '0')    // → '05'  （1文字 → 先頭に'0'を1つ追加して2文字に）
+'12'.padStart(2, '0')   // → '12'  （既に2文字なのでそのまま）
+'3'.padStart(4, '0')    // → '0003'
+'abc'.padStart(6, '-')  // → '---abc'
+```
 
 ## 参考
 [JavaScriptでマルチバイト文字列のsubstringは問題なく動く](https://zenn.dev/leaner_dev/articles/20221014-javascript-unicode-substring)
