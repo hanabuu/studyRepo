@@ -81,3 +81,42 @@ SRCS := $(filter-out test1.cpp test2.cpp,$(SRCS))
 --warn-undefined-variables
 # 未定義の変数が使用された場合に警告を表示します。
 ```
+
+## 例
+
+``` makefile
+# Targets
+TARGET := main_test
+TEST_SOURCE := gtest_main.cpp
+STUB_SOURCE := stub.cpp
+TARGET_SOURCE := $(APPBOOT_SOURCE)/main.c
+
+OBJS := gtest_main.o stub.o main.o
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CXX) -o $@ $^ $(LDFLAGS)
+
+gtest_appBoot_main.o: $(TEST_SOURCE)
+	$(CXX) $(COMMON_CXXFLAGS) -c $< -o $@
+
+stub.o: $(STUB_SOURCE)
+	$(CXX) $(COMMON_CXXFLAGS) -c $< -o $@
+
+# Rename appBoot_main.c's main() symbol to avoid conflict with gtest_main
+appBoot_main.o: $(TARGET_SOURCE)
+	$(CC) $(COMMON_CFLAGS) -Dmain=appBoot_entry_main -Dstatic= -c $< -o $@
+
+```
+
+### $@
+
+そのルールで作る「ターゲット名」を表します。
+実行ファイル名の名前。「TARGET :=」でよく指定されている
+
+### $^
+
+そのターゲットの「依存ファイル一覧（重複除去済み）」を表します。
+オブジェクトファイル(.oファイル)の一覧。「OBJ :=」でよく指定されている。
+
