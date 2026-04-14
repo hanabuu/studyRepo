@@ -42,3 +42,13 @@ while (n < 3) {
     console.log(value);
   })
   ```
+
+
+## テクニック
+
+### ??
+
+式: A ?? B
+意味:
+A が null または undefined のときだけ B を使う
+それ以外（空文字 ""、0、false など）は A をそのまま使う

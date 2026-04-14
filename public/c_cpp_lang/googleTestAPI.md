@@ -87,3 +87,41 @@ ASSERT_NE(nullptr, resp);
 
 ASSERT_ 系は失敗すると「現在の関数から return」します。ヘルパー関数内で使うと、そのヘルパーだけが戻る点に注意してください（致命的失敗を親に伝えるには戻り値で伝搬するか、テスト本体で使うのが安全です）。
 ```
+
+## 特定のテストのみを実行する
+
+Google Test で特定のテストのみを実行するには、実行時に --gtest_filter フラグを使用します。
+
+|フィルタ|説明|
+|--|--|
+|TestClass.TestName|完全一致|
+|TestClass.*|TestClass のすべてのテスト|
+|*TestName|TestName で終わるすべてのテスト|
+|Prefix*|Prefix で始まるすべてのテスト|
+|*checkFiles*|"checkFiles" を含むすべてのテスト|
+|-ExcludePattern|パターンを除外|
+
+### Makefileに組み込み
+
+以下を組み込む
+
+``` makefile
+run-test: $(TARGET)
+	./$(TARGET) --gtest_color=yes --gtest_filter="$(FILTER)"
+
+run-list: $(TARGET)
+	./$(TARGET) --gtest_list_tests
+```
+
+- CheckFiles で始まるテストのみ実行 → 10 tests
+```make run-test FILTER="*CheckFiles*"```
+- 特定テストだけ実行
+```make run-test FILTER="ProcessTest.CheckFilesReturnsFailureWhenDeleteSystemdataAFails"```
+- Save や Log を含むテストを実行
+```make run-test FILTER="*Log*"```
+- 記号なしマッチ（複数条件 OR）
+```make run-test FILTER="*CheckFiles*:*CheckModel*"```
+- 除外（CheckModel 以外）
+```make run-test FILTER="-*CheckModel*"```
+- 全テスト一覧表示
+```make run-list```
