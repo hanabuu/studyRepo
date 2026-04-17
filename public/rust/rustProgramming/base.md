@@ -349,6 +349,32 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 
 これは、実際に稼働しているRustの安全機構の最初の例になります。低レベル言語の多くでは、 この種のチェックは行われないため、間違った添え字を与えると、無効なメモリにアクセスできてしまいます。 Rustでは、メモリアクセスを許可し、処理を継続する代わりに即座にプログラムを終了することで、 この種のエラーからプログラマを保護しています。
 
+### 列挙型
+
+- ```Option<T>```
+  - 「値あり」、「値なし」を表す列挙型の値の一つ
+  - 引数で```Option<T>```を受け取るとき、呼び出す側で```Option<T>```に```Some(value)```とした場合は、必ず```Option<T>```は値ありの状態となる。
+
+例）
+
+``` rs
+
+test(Some("aaa"))  // この場合" "の中身がなんであれ、test関数でtestOptは値あり
+test(None)       // この場合はtest関数でtestOptは値なし
+
+fn test(testOpt: Option<&str>) -> AppResult<>{
+    if let Some(testOpt) = testOpt {
+        // 値ありなら入る
+        println!("value {}", testOpt.to_string());
+    } else {
+        // 値なしなら入る
+    }
+}
+```
+
+これをやることで、booleanとしての情報とTの情報も渡せる。
+値ありの時にaaaを取得して、処理に使える
+
 ## 関数について
 
 - エントリポイント(プログラム実行時に最初に走る関数のこと)：main

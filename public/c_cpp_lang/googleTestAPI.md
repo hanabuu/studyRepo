@@ -125,3 +125,7 @@ run-list: $(TARGET)
 ```make run-test FILTER="-*CheckModel*"```
 - 全テスト一覧表示
 ```make run-list```
+
+### 特定区間のカバレッジ除外
+
+/ GCOVR_EXCL_START / ～ / GCOVR_EXCL_STOP */ で囲んだ区間のカバレッジはとられなくなる

@@ -19,3 +19,21 @@
 
 次のタブに移動: Ctrl + Fn + PgUp
 前のタブに移動: Ctrl + Fn + PgDown
+エクスプローラーへ移動: Ctrl+Shift+E
+
+## VScodeのキーバインド変更
+
+VScodeのVimのsetting.json(VSCodeの設定でvim.insertModeKeyBindingsと打てば出てくる)
+
+``` text
+{
+"vim.leader": "<space>",
+"vim.insertModeKeyBindings": [
+  { "before": ["j", "j"], "after": ["<Esc>"] } // jjでノーマルモードに戻る
+],
+"vim.hlsearch": true, // 検索結果をハイライト
+"vim.useSystemClipboard": true, // システムクリップボードと同期
+"vim.easymotion": true, // EasyMotionを有効化
+"vim.surround": true // Surroundプラグインを有効化
+}
+```
