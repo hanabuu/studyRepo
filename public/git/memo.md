@@ -2,6 +2,13 @@
 
 ## 覚書
 
+- [nameとemailを設定する](https://docs.github.com/ja/get-started/git-basics/setting-your-username-in-git)
+
+``` text
+> git config user.name '～'
+> git config user.email '～'
+```
+
 ### ローカルのプロジェクトをGitHubへアップロードする方法
 
 #### 例）StaticHtml

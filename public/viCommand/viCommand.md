@@ -37,3 +37,7 @@ VScodeのVimのsetting.json(VSCodeの設定でvim.insertModeKeyBindingsと打て
 "vim.surround": true // Surroundプラグインを有効化
 }
 ```
+
+## 検索
+
+置換(完全一致)： ```:%s/\b<str>\b/<置換後>/g```
