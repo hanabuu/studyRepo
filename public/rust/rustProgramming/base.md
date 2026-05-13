@@ -542,6 +542,42 @@ fn example() -> Result<(), Box<dyn Error>> {
 }
 ```
 
+#### map_err()によるエラーメッセージの変換
+
+?によりエラーとして戻り値を返す場合に処理ごとに返す文字列を変えたい場合、.map_errを使って処理を行う。
+この時戻り値はResult<～, String>にしておく必要あり。またmap_errは"".to_string()で文字列にすること。ただしformat!("")で文字列である場合は不要なのかもしれない。
+
+``` rust
+fn load_env_config() -> Result<&'static EnvConfig, String> {
+    ENV_CONFIG.get_or_try_init(|| {
+        dotenvy::dotenv().ok();
+
+        /// 1.env::var が成功したら、map_err は何もせず、そのまま Ok 
+        /// 2.env::var が失敗したら、map_err がそのエラーを指定の文字列に変換
+        /// 3.その後の ? で load_env_config() から即座に返します。
+        /// つまり、env::varに失敗したら特定のメッセージを返す
+        let gitlab_url = env::var("・・・")
+            .map_err(|_| "・・・ is not set. Please configure it in the .env file.".to_string())?
+```
+
+また例えばhttpリクエストなどでtry{...} catch{error}のようにerrorがキャッチできる場合は、.map_err(|error| format!("{error}"))?でエラーの内容を戻り値の文字列に入れることが可能
+
+``` rust
+let response = request
+    .send()
+    .await
+    .map_err(|error| format!("GitLab API request failed: {error}"))?;
+```
+
+※.map_err()はErrだった場合の処理だが、.map()はOkだった場合に引数の文字列を変換できる
+
+``` rust
+let user_id = env::var("USER_ID")
+    .ok()
+    .map(|value| value.trim().to_string())  // env::varから取得した文字列のトリムと文字列化
+    .filter(|value| !value.is_empty());
+```
+
 ### unwrap()
 
 - unwrapというのでもエラーハンドリングが可能そう
