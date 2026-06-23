@@ -64,3 +64,79 @@ cargo install ripgrep
 [6] [https://maku.blog](https://maku.blog/p/4jhbtm3/)
 [7] [https://qiita.com](https://qiita.com/miyagaw61/items/32b151087a6b8d29e0aa)
 [8] [https://zenn.dev](https://zenn.dev/megeton/articles/56b8a6a74e6394)
+
+## SSHサーバー
+
+Rocky LinuxでSSHサーバーを設定するには、SSHサービスをインストールし、設定ファイルを編集して、ファイアウォールでSSHポートを許可する必要があります。
+SSHサーバーのインストールと設定手順
+
+1. システムの更新:
+
+最初に、システムを最新の状態に更新します。以下のコマンドを実行します。
+
+``` bash
+sudo dnf update
+```
+
+1. OpenSSHサーバーのインストール:
+
+SSHサーバーがインストールされていない場合、以下のコマンドでインストールします。
+
+``` bash
+sudo dnf install openssh-server
+```
+
+1. SSHサービスの起動と有効化:
+
+SSHサービスを起動し、システム起動時に自動的に開始するように設定します。
+
+``` bash
+sudo systemctl start sshd
+sudo systemctl enable sshd
+```
+
+1. SSH設定ファイルの編集:
+
+SSHの設定ファイルを開き、必要に応じて設定を変更します。
+
+``` bash
+sudo vi /etc/ssh/sshd_config
+```
+
+  - PermitRootLogin: ルートログインを無効にするために、以下の行を変更します。
+  
+  ``` text
+  PermitRootLogin no
+  ```
+
+  - ポートの変更: デフォルトのポート22を変更したい場合は、以下の行のコメントを外し、ポート番号を変更します。
+
+  ``` text
+  #Port 22
+  ```
+
+1. ファイアウォールの設定:
+
+SSHサービスへのアクセスを許可するために、ファイアウォールの設定を行います。
+
+``` bash
+sudo firewall-cmd --permanent --add-service=ssh
+sudo firewall-cmd --reload
+```
+
+1. SSHサービスの再起動:
+
+設定を変更した後、SSHサービスを再起動します。
+
+``` bash
+sudo systemctl restart sshd
+```
+
+1. 接続の確認
+
+SSHクライアントを使用して、他のコンピュータからSSH接続を試みます。接続が成功すれば、設定は完了です。
+
+これでRocky LinuxでのSSH設定が完了しました。リモートから安全に接続できるようになります。詳細な手順や設定については、公式ドキュメントや信頼できるリソースを参照してください
+
+[【Rocky Linux 9】02.SSH設定](https://qiita.com/T_Tsan/items/5943685891078bbdc217)
+

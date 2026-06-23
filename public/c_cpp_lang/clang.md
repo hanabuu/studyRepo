@@ -3,6 +3,108 @@
 ## strtol
 文字列をlong型に変換する
 
+## strchr
+
+文字列中から特定の文字を検索する
+
+strchr 関数は、C言語で文字列中から特定の文字を検索するための標準ライブラリ関数です。この関数は、指定された文字が最初に出現する位置のポインタを返します。もし文字が見つからない場合は、NULL を返します。
+
+基本的な構文
+
+``` c
+#include <string.h>
+
+char *strchr(const char *str, int c);
+```
+
+- str: 検索対象の文字列。
+- c: 検索する文字（int型だが、実際にはcharとして扱われる）。
+
+使用例
+
+以下は、strchr 関数を使った基本的な例です。
+
+``` c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+const char *str = "This is a pen.";
+char c = 'a';
+
+// 文字列中の文字を検索
+char *result = strchr(str, c);
+
+if (result != NULL) {
+printf("文字 '%c' は文字列 \"%s\" の %ld 文字目にあります。\n", c, str, result - str + 1);
+} else {
+printf("文字 '%c' は文字列 \"%s\" 中に見つかりませんでした。\n", c, str);
+}
+
+return 0;
+}
+```
+
+実行結果
+
+``` text
+文字 'a' は文字列 "This is a pen." の 9 文字目にあります。
+```
+
+応用例: 文字のカウント
+
+文字列中に特定の文字が何回出現するかを数える場合、strchr をループで使用します。
+
+``` c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+const char *str = "This is a pen.";
+char c = 'i';
+const char *ptr = str;
+int count = 0;
+
+printf("文字列 \"%s\" 中の文字 '%c' の位置:\n", str, c);
+
+while ((ptr = strchr(ptr, c)) != NULL) {
+printf("%ld 文字目\n", ptr - str + 1);
+ptr++; // 次の文字から検索を続ける
+count++;
+}
+
+if (count == 0) {
+printf("文字 '%c' は見つかりませんでした。\n", c);
+} else {
+printf("合計 %d 回見つかりました。\n", count);
+}
+
+return 0;
+}
+```
+
+実行結果
+
+``` text
+文字列 "This is a pen." 中の文字 'i' の位置:
+3 文字目
+6 文字目
+合計 2 回見つかりました。
+```
+
+注意点
+
+戻り値: strchr の戻り値は、文字列中の該当文字のポインタです。このポインタを使って文字列の位置を計算できます。
+NULL 終端: strchr は文字列の終端（'\0'）まで検索を行います。該当文字が見つからない場合は NULL を返します。
+マルチバイト文字: 日本語などのマルチバイト文字を扱う場合は、_mbschr 関数を使用する必要があります。
+
+関連関数
+
+- strrchr: 文字列の末尾から検索を行う関数。
+- memchr: メモリ領域から特定の文字を検索する関数。
+
+[【C言語】strchrの使い方：文字列内から指定文字を検索する手順](https://af-e.net/c-language-how-to-use-strchr/)
+
 ## ポインタ配列チェーン？
 
 ### イメージ
@@ -254,3 +356,77 @@ ACK  ----------->                    完全接続キュー      │
 Linux では backlog の上限は /proc/sys/net/core/somaxconn で制限されます（デフォルト 128）。
 半接続キューのサイズは /proc/sys/net/ipv4/tcp_max_syn_backlog で制御されます。
 高負荷サーバーでは両方の値を調整しないと、backlog を大きくしても効果が出ない場合があります。
+
+## stat
+
+stat関数は、指定したファイルやディレクトリの状態情報を取得するための関数です。
+基本概要
+C言語での stat関数 は、ファイルやディレクトリの情報を取得し、struct stat に格納します。標準Cライブラリの一部ではなく、#include <sys/stat.h> が必要です。関数の基本的な形式は以下の通りです。
+
+``` c
+#include <sys/stat.h>
+int stat(const char *path, struct stat *buf);
+```
+
+- path: 情報を取得したいファイルやディレクトリのパス
+- buf: 取得した情報を格納する struct stat のポインタ
+- 戻り値: 成功時は0、失敗時は-1を返す
+
+stat構造体の主なメンバ
+
+struct stat には以下の情報が含まれます。
+
+- st_dev : ファイルが存在するデバイスID
+- st_ino : inode番号
+- st_mode : ファイルの種類とアクセス権（パーミッション）
+- st_nlink : ハードリンクの数
+- st_uid : 所有者のユーザID
+- st_gid : 所有者のグループID
+- st_rdev : 特殊ファイルの場合のデバイスID
+- st_size : ファイルサイズ（バイト単位）
+- st_blksize : ファイルシステムI/Oでの最適ブロックサイズ
+- st_blocks : 割り当てられているブロック数
+- st_atime : 最終アクセス時刻
+- st_mtime : 最終修正時刻
+- st_ctime : 最終状態変更時刻（inode情報の更新を含む）
+
+ファイルの種類を判定するために、S_ISREG(st.st_mode)（通常ファイル）、S_ISDIR(st.st_mode)（ディレクトリ）などのマクロが用意されています。
+
+- lstat(): シンボリックリンクの場合、リンク自体の情報を取得
+- fstat(): ファイルディスクリプタを指定して情報を取得
+- fstatat(): 指定ディレクトリを基準に相対パスで情報を取得
+
+使用例
+
+``` c
+#include <stdio.h>
+#include <sys/stat.h>
+int main() {
+    struct stat st;
+    if(stat("example.txt", &st) == 0) {
+        printf("ファイルサイズ: %ld バイト\n", st.st_size);
+        printf("最終修正時刻: %ld\n", st.st_mtime);
+    } else {
+        perror("statエラー");
+    }
+    return 0;
+}
+```
+
+エラー条件
+stat関数は以下のような場合にエラーを返します。
+
+- EACCES : パス上のディレクトリに検索権限がない
+- ENOENT : 指定ファイルが存在しない
+- ENOTDIR : パスの一部がディレクトリでない
+- EOVERFLOW : ファイルサイズが構造体で表現できない
+- その他、EFAULT, EIO, ELOOP, ENAMETOOLONG など 
+
+応用
+
+- ファイルの存在確認
+- ファイルサイズの取得
+- アクセス権や所有者情報の取得
+- ディレクトリかどうかの判定
+
+stat関数は、単にファイルの存在を確認するだけでなく、詳細なファイル情報を取得する際に非常に便利です。Visual Studioなどの環境では、標準Cではないため注意が必要ですが、POSIX準拠の環境では広く利用可能です 

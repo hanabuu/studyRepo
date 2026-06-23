@@ -89,3 +89,62 @@ int main() {
 出力
 1 4 5 6
 ```
+
+## std::ifstream
+
+std::ifstreamは、C++でファイルを読み取るためのストリームクラスです。テキストファイルやバイナリファイルの内容を簡単に読み込むことができます。
+
+基本的な使用例
+
+以下は、std::ifstreamを使用してファイルを1行ずつ読み取る例です。
+
+``` c++
+#include <fstream>
+#include <iostream>
+#include <string>
+
+int main() {
+// ファイルを読み取り専用で開く
+std::ifstream ifs("example.txt");
+if (!ifs.is_open()) {
+std::cerr << "ファイルを開けませんでした" << std::endl;
+return 1;
+}
+
+// ファイルの内容を1行ずつ読み取る
+std::string line;
+while (std::getline(ifs, line)) {
+std::cout << line << std::endl;
+}
+
+// ファイルを閉じる（デストラクタでも自動的に閉じられる）
+ifs.close();
+return 0;
+}
+```
+
+主なメソッドと機能
+
+is_open(): ファイルが正常に開かれているか確認します。
+close(): ファイルを閉じます。
+std::getline(): ファイルから1行ずつ読み取ります。
+演算子>>: データを直接変数に読み込むことができます。
+
+注意点
+
+エラーチェック: ファイルが存在しない場合やアクセス権がない場合、is_open()やoperator boolでエラーを確認する必要があります。
+
+``` c++
+std::ifstream fin("nonexistent.txt");
+if (!fin) {
+std::cerr << "ファイルが存在しません" << std::endl;
+}
+```
+
+フォーマットエラー: 不正なフォーマットのデータがある場合でも例外は発生しないため、状態チェックが必要です。
+バイナリモード: バイナリファイルを扱う場合は、std::ios::binaryフラグを指定します。
+
+``` c++
+std::ifstream binFile("data.bin", std::ios::binary);
+```
+これらの機能を活用することで、効率的にファイル操作が可能になります。
