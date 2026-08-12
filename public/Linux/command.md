@@ -6,6 +6,11 @@
 ``` text
 > find <検索対象ディレクトリ> -name "<file名>"
 > find ./ -name "test.txt"
+
+例）
+Zone.Identifierファイルの検索（再帰的）
+find <path> -type f -name '*:Zone.Identifier'
+末尾に「-delete」をつけると削除できる
 ```
 
 ### locate
@@ -14,6 +19,16 @@
 ``` text
 > updatedb  :Linux内のファイル配置をアップデートする
 > locate test.txt
+```
+
+曖昧検索は「*」とかはつけなくてよい。
+
+``` text
+# locate RZG_Series_Software_Package
+/home/alsok/work/proprietary/RZG_Series_Software_Package_for_Linux-20180115.tar.gz
+/home/alsok/work/proprietary/RZG_Series_Software_Package_of_Linux_Drivers-20180115.tar.gz
+/var/work_bak/proprietary/RZG_Series_Software_Package_for_Linux-20180115.tar.gz
+/var/work_bak/proprietary/RZG_Series_Software_Package_of_Linux_Drivers-20180115.tar.gz
 ```
 
 ### ln
@@ -292,6 +307,7 @@ Architecture: x86-64
 4. uname コマンドを使用
 
 カーネルバージョンやシステム情報を取得します。
+
 ``` bash
 uname -a
 ```
@@ -383,3 +399,169 @@ Linuxでは、メモリ使用状況を確認するために複数の便利なコ
 
 [【Linuxコマンド】メモリの使用状況を確認する方法｜free・top](https://www.sejuku.net/blog/54699)
 
+## 環境変数(PATH) について
+
+- **表示**
+
+``` shell
+echo $PATH
+```
+
+例）
+
+``` shell
+$ echo $PATH
+/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin 
+```
+
+この時優先順位は ```/usr/local/bin ＞ /usr/bin ＞ /bin ＞ /usr/sbin ＞ /sbin ＞ /usr/local/sbin``` となる。（左側が優先）
+そのため、同盟のコマンドがある場合は、優先度が高いパスから使用する
+
+例) 優先度を高くしたい場合
+
+``` shll
+$ export PATH=追加したいコマンド検索パス:$PATH
+```
+
+- **コマンド実行ファイルの格納場所の確認方法**
+
+``` shell
+$ which ls
+/bin/ls
+```
+
+- **追加**
+
+パスの追加
+```.bashrc```か```bash_profile```に以下の記載を行う
+
+``` shell
+export PATH=$PATH:追加したいコマンド検索パス
+```
+
+追加後以下のコマンドで適用。ファイルは追加したほうのファイル
+
+``` shell
+$ source ~/.bashrc
+$ source ~/.bash_profile
+```
+
+- **削除**
+
+``` shell
+$ unset ULB #[$]は入力しなくて良い。
+```
+
+### 環境変数の表示方法
+
+``` shell
+export -p
+
+# 出力結果(一部のみ記載)
+declare -x PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+declare -x LANG="ja_JP.UTF-8"
+declare -x SHELL="/bin/bash"
+```
+
+[参考](https://qiita.com/ryouya3948/items/8edbd5d744c83dd41141)
+
+### 環境変数の引継ぎ
+
+以下のコマンドでcurlに失敗
+
+``` bash
+$ curl -L "https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh" | sudo bash
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  5580  100  5580    0     0   6495      0 --:--:-- --:--:-- --:--:--  6503
+curl: (6) Could not resolve host: packages.gitlab.com
+Failed to download: https://packages.gitlab.com/install/repositories/runner/gitlab-runner/el/9/config_file.repo
+Verify curl installation.
+```
+
+いろいろ調べるとsudoに環境変数が渡ってないことが原因だった。調べてみるとAIの回答は以下
+
+sudo で環境変数を引き継ぐには -E オプションを使用します。また、特定の環境変数だけを引き継ぎたい場合は --preserve-env を指定し、コマンドラインで一時的に渡すこともできます。具体的な使い分けとコマンドは以下の通りです。
+
+1. すべての環境変数を引き継ぐ現在のシェルに設定されているほとんどの環境変数をそのまま sudo 先に引き継ぐには、コマンドの前に -E オプションを付けます。
+
+``` bash
+sudo -E command
+```
+
+2. 特定の環境変数だけを引き継ぐ特定の変数（例: PATH や http_proxy）のみをピンポイントで引き継ぎたい場合は、--preserve-env オプションを使います。
+
+```bash
+sudo --preserve-env=PATH,http_proxy command
+```
+
+3. 一時的な環境変数を渡して実行する事前に環境変数を export していなくても、そのコマンドを実行する時だけ変数を設定して引き継ぐことができます。
+
+```bash
+sudo env PATH="$PATH" command
+```
+
+4. 常に特定の変数を引き継ぐ設定（永続化）sudo するたびにオプションを付けるのが手間な場合や、特定の変数（PATH など）がリセットされてしまうのを防ぐには、/etc/sudoers ファイルを編集します。コマンド sudo visudo を実行し、env_keep に引き継ぎたい変数を追加します。
+
+```bash
+Defaults env_keep += "PATH http_proxy"
+```
+
+上記を踏まえ、以下のコマンドで成功した。
+
+```bash
+$ curl -L "https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh" | sudo --preserve-env=PTAH,https_proxy,http_proxy bash
+```
+
+ただ、よくわからないのが、管理者権限では実行に失敗する。よくわからない・・
+
+## /etc/resolv.confがない
+
+/etc/resolv.confは、LinuxなどのUNIX系OSでドメイン名（URLなど）からIPアドレスを調べる「名前解決」の動作（DNSサーバーや検索ドメイン）を設定するファイルです
+
+主要な記述項目
+ファイル内には主に以下のパラメーターを記述します。
+
+- nameserver: 問い合わせを行うDNSサーバーのIPアドレス（通常最大3つまで指定可能）。
+- search: ホスト名のみ指定された際に補完するドメインの検索順序。
+- domain: ローカルドメインのデフォルト値。
+
+注意点と設定方法
+現在の多くのLinuxディストリビューションでは、このファイルはNetworkManagerやsystemd-resolvedなどのネットワーク管理サービスによって自動生成されます。そのため、手動でファイルを編集しても再起動やネットワーク再接続時に上書きされて消えてしまうことがあります。DNS設定を恒久的に変更したい場合は、利用している環境に合わせて以下のいずれかの適切な手順を実行してください。
+
+1. systemd-resolved を使用している場合（Ubuntuなど）
+通常、/etc/resolv.confは/run/systemd/resolve/stub-resolv.confへのシンボリックリンクになっています。設定を変更するには、/etc/systemd/resolved.confを編集し、DNSサーバーなどを指定したのちにサービスを再起動します。
+
+```text
+[Resolve]
+DNS=8.8.8.8 1.1.1.1
+```
+
+2. NetworkManager を使用している場合(Redhat系)
+NetworkManagerが/etc/resolv.confを制御している場合、直接編集すると上書きされます。恒久的な設定はnmcliコマンドを利用して設定するか、GUIツール（ネットワーク設定画面）で行います。[第21章 /etc/resolv.conf ファイルの手動設定](https://docs.redhat.com/ja/documentation/red_hat_enterprise_linux/8/html/configuring_and_managing_networking/manually-configuring-the-etc-resolv-conf-file_configuring-and-managing-networking)
+
+- 再起動時に残らなくていい
+
+```bash
+sudo tee /etc/resolv.conf > /dev/null <<'EOF'
+nameserver 1.1.1.1
+nameserver 8.8.8.8
+options timeout:2 attempts:3
+EOF
+```
+
+- 恒久的に設定する場合
+
+```bash
+sudo nmcli connection modify ens160 ipv4.dns "1.1.1.1 8.8.8.8"
+sudo nmcli connection modify ens160 ipv4.ignore-auto-dns yes
+sudo nmcli connection up ens160
+```
+
+3. 手動で直接管理したい場合（恒久設定の無効化）
+自動更新を無効にして/etc/resolv.confを手動編集できるようにするには、ネットワークマネージャーの設定（例: /etc/NetworkManager/conf.d/90-dns-none.conf）を編集し、DNSの自動処理を無効にする必要があります。
+
+```text
+[main]
+dns=none
+```

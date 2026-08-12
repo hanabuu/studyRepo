@@ -271,6 +271,13 @@ Git SSH
 > ssh-keygen -t ed25519 -f $env:USERPROFILE\.ssh\id_ed25519_work -C "work-github"
 ```
 
+これなにか聞かれるけど、無視してEnter！
+再確認されるけど、Enter！
+でいく。
+あと、gitLabとgitHubで分けたいときはそれぞれでキーを作成する。
+id_ed25519_workの部分でworkをユニークにしてやる。.sshフォルダのファイル名なので。
+あと"work-github"もユニークにしないとかな？
+
 2. %USERPROFILE\.ssh\config を作成/編集
 
 ``` text
@@ -320,7 +327,6 @@ mkdir -p ~/.ssh
 chmod 700 ~/.ssh
 chmod 600 ~/.ssh/config
 chmod 600 ~/.ssh/id_ed25519_work
-chmod 644 ~/.ssh/id_ed25519_work.pub
 ```
 
 接続確認:
@@ -328,6 +334,138 @@ chmod 644 ~/.ssh/id_ed25519_work.pub
 ```
 ssh -T git@github-work
 ```
+
+### LinuxでSSH接続するために
+
+Linuxでは.sshフォルダがユーザールートフォルダに存在しない。そのため以下の手順で手動で作成する
+
+- **新規で鍵を作る場合**
+
+1. .ssh フォルダ作成と権限設定
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+
+1. 鍵が未作成なら新規作成（推奨: ed25519）
+ssh-keygen -t ed25519 -C "your_email@example.com"
+保存先は通常そのまま Enter（~/.ssh/id_ed25519）
+
+1. 鍵ファイル権限を整える
+chmod 600 ~/.ssh/id_ed25519
+chmod 644 ~/.ssh/id_ed25519.pub
+
+1. 公開鍵をGitLabに登録
+cat ~/.ssh/id_ed25519.pub
+表示された内容を GitLab の
+User Settings → SSH Keys
+に貼り付けて保存
+
+1. 接続テスト
+ssh -T git@gitlab.com
+初回はホスト確認が出るので yes
+
+- **すでにある鍵ファイルを適用する場合
+
+1. .ssh がなければ作成
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+
+1. config を作成
+touch ~/.ssh/config
+chmod 600 ~/.ssh/config
+
+1. config に既存鍵を指定
+例（gitlab.com に既存鍵を使う）:
+
+``` text
+Host gitlab.com
+HostName gitlab.com
+User git
+IdentityFile ~/.ssh/既存の秘密鍵ファイル名
+IdentitiesOnly yes
+```
+
+例（GitLabを別名で使い分ける）:
+
+``` text
+Host gitlab-work
+HostName gitlab.com
+User git
+IdentityFile ~/.ssh/既存の秘密鍵ファイル名
+IdentitiesOnly yes
+```
+
+1. 秘密鍵の権限も確認
+chmod 600 ~/.ssh/既存の秘密鍵ファイル名
+
+1. 接続確認
+標準ホスト設定なら:
+ssh -T git@gitlab.com
+
+1. 別名ホスト設定なら:
+ssh -T git@gitlab-work
+
+### .crtファイルはただの証明書
+
+.crt は通常 SSH 秘密鍵ではないため、そのまま使えない可能性が高いです。ローカルの .crt の実体を確認して、SSH に使えるか判断します。
+.crt はたいてい X.509 証明書で、SSH の秘密鍵そのものではありません。GitLab の SSH 認証で必要なのは基本的に「SSH 秘密鍵」と、その対になる「SSH 公開鍵」です。
+
+整理するとこうです。
+
+- .ssh にファイルを置くこと自体は可能
+- ただし、置いただけで SSH 鍵として使えるわけではない
+- GitLab の SSH 認証で使うのは通常 다음の形式です
+  - 秘密鍵: id_ed25519, id_rsa など
+  - 公開鍵: id_ed25519.pub, id_rsa.pub など
+- .crt は多くの場合、TLS/社内証明書用であって SSH 用ではありません
+
+例外はあります。
+- .crt の中身が実は秘密鍵で、拡張子だけ .crt になっている
+- OpenSSH の証明書運用をしている
+ただし GitLab の一般的な git clone 用 SSH 認証では、これはかなり特殊です。
+
+まず中身を確認してください。ファイルを開いて先頭がどれかで判別できます。
+- -----BEGIN OPENSSH PRIVATE KEY-----
+- -----BEGIN RSA PRIVATE KEY-----
+  - これは SSH 秘密鍵として使える可能性があります
+- -----BEGIN CERTIFICATE-----
+  - これは証明書です。通常は SSH 秘密鍵としては使えません
+- -----BEGIN PUBLIC KEY-----
+  - 公開鍵の可能性はありますが、SSH 用の .pub とは別形式のことがあります
+
+判定の目安:
+- SSH に必要なのは「秘密鍵」
+- GitLab に登録するのは「公開鍵」
+- .crt が証明書だけなら、GitLab SSH 認証には使えません
+
+次の確認方法が確実です。
+1. .crt の先頭数行を見る
+2. もし BEGIN CERTIFICATE なら、SSH 用ではないと考える
+3. もし社内から配布されたファイルなら、その鍵が「GitLab SSH 用」なのか「クライアント証明書用」なのか配布元に確認する
+
+必要なら次にできることは 2 つです。
+1. その .crt の中身をこちらで判定する
+2. GitLab 用の SSH 鍵を新規作成して、登録手順まで進める
+
+中身を見せられるなら、秘密情報に当たる可能性があるので全文ではなく先頭 3 行だけ共有してください。BEGIN の種類だけで判定できます。
+
+### .crtをLinux(RHL)に適用したい(OSの信頼ストア)
+
+1. 証明書ファイルを用意する
+
+拡張子は .crt か .pem で大丈夫です。
+必要なのはサーバー証明書ではなく、その発行元の CA 証明書です。
+
+1. 信頼ストアに追加する
+
+``` bash
+sudo cp company-ca.crt /etc/pki/ca-trust/source/anchors/
+sudo update-ca-trust
+```
+
+### GitLabで複数リポジトリでSSHキーを共有する
+
+1. 管理者エリア＞デプロイキー＞新しいデプロイキーでSSHの公開鍵を登録する
+1. 各リポジトリで設定＞リポジトリ＞デプロイキーからパブリックアクセスが可能なデプロイキーで登録したキーを「有効」にする
 
 ## 参考
 
