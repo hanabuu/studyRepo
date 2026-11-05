@@ -430,3 +430,40 @@ stat関数は以下のような場合にエラーを返します。
 - ディレクトリかどうかの判定
 
 stat関数は、単にファイルの存在を確認するだけでなく、詳細なファイル情報を取得する際に非常に便利です。Visual Studioなどの環境では、標準Cではないため注意が必要ですが、POSIX準拠の環境では広く利用可能です 
+
+## do～while(0)
+
+while(0)だからループしないけど、エラー処理で一気に抜けたいときに使えるテクニックらしい
+
+```c
+# include <stdio.h>
+int main()
+{
+  int i = 0;
+  bool ret=TRUE;
+  do {
+    if (i == 0) {
+      printf("hello world! i=%d\n", i);
+      ret = FALSE;
+      break;  //do～whileを抜ける
+    }
+    if (i == 1) {
+      printf("hello world! i=%d\n", i);
+      ret = FALSE;
+      break;  //do～whileを抜ける
+    }
+    printf("I don't want to run here!\n");
+  } while (0);
+
+  if(!ret){
+    printf("ERROR!\n");
+    return 0;
+  } else {
+    ・・・
+  }
+}
+```
+
+gotoなどを使わなくても囲われたブロックからbreakで脱出できるという訳。
+
+[do～while(0)とは何か？](https://qiita.com/ymko/items/ae8e056a270558f7fbaf)

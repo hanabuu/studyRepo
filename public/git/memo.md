@@ -473,3 +473,10 @@ sudo update-ca-trust
 [【git】【Windows】認証情報を設定しよう](https://zenn.dev/kuuki/articles/git-config-auth-windows)
 
 [git pull完全ガイド：実践的な使い方とベストプラクティス【2025年最新版】](https://blue3orz.com/git-pull-complete-guide-2025/)
+
+## GitLab,GitHubへどちらもhttpsでつなぐ
+
+```
+> git config --global --unset http.sslCAInfo                                    //sslCAInfを消す
+> git config --global http."https://gitlab.com/(一方のサイトURL)".sslCAInfo "C:\work\xx.crt(証明書パス)"    // 特定のサイトだけのsslCAInfoを作る
+```
