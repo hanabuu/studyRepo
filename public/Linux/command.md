@@ -625,3 +625,71 @@ scp コピー元 コピー先
 
 パスにスペースが入る場合は "C:\My Files\a.txt" のように引用符で囲んでください。
 ファイルをたくさん、または何度もやり取りするなら、対話的に操作できる sftp user@host も便利です。
+
+# rgコマンド
+
+rg（[ripgrep](https://github.com/BurntSushi/ripgrep)）は、Rustで実装された非常に高速なコマンドライン検索ツールです。標準のgrepと同様に正規表現でテキスト検索を行いますが、デフォルトで高速な再帰検索、.gitignoreの自動考慮、マルチスレッド処理を行い、大規模なコードベースやログファイルから瞬時にパターンを特定できます。 [1, 2, 3] 
+主な特徴と使い方:
+
+* 高速検索: grep, ag より高速。
+* 自動検索: カレントディレクトリを再帰的に検索。
+* 除外機能: .gitignore に含まれるファイルや隠しファイルを自動で検索対象外にする。
+* 基本コマンド: rg [パターン] [パス]。 [1, 2, 3, 4, 5] 
+
+よく使うオプションと例:
+
+* rg "pattern": 現在のディレクトリ以下を再帰的に検索。
+* rg -i "pattern": 大文字小文字を区別せず検索。
+* rg -w "pattern": 単語単位で完全一致検索。
+* rg -l "pattern": マッチしたファイル名のみを表示。
+* rg -g "*.py" "pattern": Pythonファイルのみを対象に検索。
+* rg -tpy "pattern": [rg -g "*.py" "pattern"] と同等。
+* rg -Tpy "pattern": [rg -g "!*.py" "pattern"] と同等。
+* rg -F "string": 正規表現を使わず、文字列そのもので検索。 [1, 4, 6, 7] 
+
+インストール方法（Ubuntu/Debian）:
+
+sudo apt install ripgrep
+
+または、cargo install ripgrep でインストール可能です。 [8] 
+
+[1] [https://bashdo.com](https://bashdo.com/command/ripgrep/)
+[2] [https://koanacademy.jp](https://koanacademy.jp/rg)
+[3] [https://www.youtube.com](https://www.youtube.com/watch?v=1gywe0ILrvw&t=10)
+[4] [https://gihyo.jp](https://gihyo.jp/admin/serial/01/ubuntu-recipe/0579)
+[5] [https://labex.io](https://labex.io/ja/tutorials/linux-fast-searching-with-ripgrep-384504)
+[6] [https://maku.blog](https://maku.blog/p/4jhbtm3/)
+[7] [https://qiita.com](https://qiita.com/miyagaw61/items/32b151087a6b8d29e0aa)
+[8] [https://zenn.dev](https://zenn.dev/megeton/articles/56b8a6a74e6394)
+
+# インストール方法
+
+Red Hat系（RHEL, AlmaLinux, Rocky Linux, CentOS Streamなど）での ripgrep インストール方法は以下の通りです。
+------------------------------
+## 1. DNF または Yum でインストール
+最近のOS（RHEL 8以降）であれば、標準のリポジトリに含まれていることが多いです。
+
+sudo dnf install ripgrep
+
+## 2. EPELリポジトリを利用する
+標準リポジトリで見つからない場合は、EPEL（Extra Packages for Enterprise Linux）を有効にする必要があります。
+
+# EPELのインストール
+sudo dnf install epel-release
+# ripgrepのインストール
+sudo dnf install ripgrep
+
+## 3. RustのCargo（パッケージマネージャ）を使う
+最新版を確実に使いたい場合や、リポジトリにパッケージがない場合は Rust のビルドツールを使います。
+
+# Rustツールチェーンのインストール
+curl --proto '=https' --tlsv1.2 -sSf https://rustup.rs | sh
+# インストール（パスを通した後に実行）
+cargo install ripgrep
+
+💡 ~/.cargo/bin/rg に実行ファイルが生成されます。
+------------------------------
+📍 インストールが完了したか確認するコマンド：
+rg --version
+特定のファイル拡張子に絞って検索する方法など、具体的な使い方の例も必要ですか？
+
