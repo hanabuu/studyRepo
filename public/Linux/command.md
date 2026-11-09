@@ -565,3 +565,63 @@ sudo nmcli connection up ens160
 [main]
 dns=none
 ```
+
+## リモート接続
+
+Windowsも同様らしい
+
+### SSH
+
+- **基本の使い方**
+
+``` sh
+ssh ユーザー名@ホスト名またはIPアドレス
+```
+
+例：`ssh admin@192.168.1.10`
+
+よく使うオプション
+
+ポートを指定：`ssh -p 2222 user@host`
+秘密鍵を指定：`ssh -i C:\Users\あなた\.ssh\id_ed25519 user@host`
+鍵ペアを作る：`ssh-keygen -t ed25519`（C:\Users\あなた\.ssh\ に保存されます）
+
+「'ssh' は認識されていません」と出たとき
+
+「設定」→「システム」→「オプション機能」で「OpenSSH クライアント」を追加してください（Windows 10では「アプリ」→「オプション機能」）。
+
+※ちちなみに、COM ポートへの接続はPuTTYのplinkが必要
+
+``` sh
+plink -serial COM3 -sercfg 115200,8,n,1,N
+```
+
+-sercfg の値は「ボーレート, データビット, パリティ, ストップビット, フロー制御」の順です。接続する機器の設定に合わせてください。
+
+### SCP
+
+- **基本の書き方**
+
+``` sh
+scp コピー元 コピー先
+```
+
+リモート側のファイルは ユーザー名@ホスト:パス の形で書きます。
+
+例
+
+ローカルからリモートへ送る：
+`scp C:\work\data.txt user@192.168.1.10:/home/user/`
+リモートからローカルへ取ってくる：
+`scp user@192.168.1.10:/var/log/app.log C:\work\`
+フォルダごとコピーする（-r）：
+`scp -r C:\work\project user@host:/home/user/`
+ポートを指定する（大文字の -P。sshの小文字 -p とは違うので注意）：
+`scp -P 2222 file.txt user@host:/tmp/`
+秘密鍵を指定する：
+`scp -i C:\Users\あなた\.ssh\id_ed25519 file.txt user@host:/tmp/`
+
+- **注意点**
+
+パスにスペースが入る場合は "C:\My Files\a.txt" のように引用符で囲んでください。
+ファイルをたくさん、または何度もやり取りするなら、対話的に操作できる sftp user@host も便利です。

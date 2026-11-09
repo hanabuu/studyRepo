@@ -144,6 +144,8 @@ $ git pull origin master
 
 https://note.nkmk.me/git-config-setting/
 
+
+
 ### ローカルのリポジトリのコミットからプッシュの流れ
 
 ``` text
@@ -207,7 +209,6 @@ git reset --soft HEAD^
 [[git] 戻したい時よく使っているコマンドまとめ](https://qiita.com/rch1223/items/9377446c3d010d91399b)
 [怖くない切り戻し git-revert / git-reset](https://qiita.com/takiguchi-yu/items/f56563f56217b71b0b7e)
 
-
 ## 差分確認
 
 ```
@@ -258,8 +259,22 @@ git checkout .                  //全消し
   - なんかglobalにいろいろ記載があって、ここのcredential.helperでどこからパスワードをとってくるか設定してるらしい
 
   ``` shell
-  > git config --global credential.helper wincred  #Windowsの資格情報から取得？
+  > git config --global credential.helper wincred  #Windowsの資格情報から取得？(今は非推奨かも)
+  > git config --global credential.helper manager  #Windowsの資格情報から取得？
   ```
+
+
+- 設定削除
+
+``` sh
+git config --global --unset 設定項目
+```
+
+- (ないとおもうけど)すべての設定をリセット
+
+``` sh
+rm ~/.gitconfig
+```
 
 ## SSHでの接続
 
