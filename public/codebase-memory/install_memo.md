@@ -56,7 +56,7 @@ MCPサーバーまでインストールしてくれた。
      "servers": {
        "codebase-memory-mcp": {
          "type": "stdio",
-         "command": "/home/alsok/.local/bin/codebase-memory-mcp"
+         "command": "/home/<ユーザー>/.local/bin/codebase-memory-mcp"
        }
      }
    }
